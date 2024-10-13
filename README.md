@@ -13,7 +13,7 @@
 
 
 ### What is FlowScript
-FlowScript is a node based visual scripting system powered by JavaScript. With a modern interface that allows you to edit FlowScript node graphs, writing javascript simple applications has never been easier! 
+FlowScript is a node based visual scripting system powered by JavaScript. With a modern interface that allows you to edit FlowScript node graphs, writing simple javascript applications has never been easier! 
 
 | :exclamation: THIS APP IS IN BETA!! PLEASE REPORT ANY BUGS! |
 |---|
