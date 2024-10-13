@@ -1,6 +1,6 @@
 {
     "private": false,
-    "version": "0.0.12",
+    "version": "0.0.13",
     "name": "dekita-flowscript",
     "productName": "FlowScript",
     "description": "FlowScript written by DekitaRPG",
@@ -78,6 +78,6 @@
     },
     "release": {
         "date": "10/13/2024",
-        "time": "11:33:00 AM"
+        "time": "12:07:14 PM"
     }
 }

@@ -1,7 +1,7 @@
 
 
 <div align="center">
-    <img style="max-height: 256px; width: auto;" src="resources/images/logo.png" title="Main Logo" />
+    <img style="max-height: 256px; width: auto;" src="resources/images/flowscript-haeder.png" title="Main Logo" />
     <div class="row" style="margin: 12px;">
         <img src="https://img.shields.io/github/downloads/Dekita/flowscript/total?style=for-the-badge&logo=github">
         <a class="mx-2" href="https://discord.gg/WyTdramBkm" target="_blank">
@@ -12,10 +12,11 @@
 <hr class="mt-1">
 
 
-### What is FlowScript
-FlowScript is a visual code editor
+### What is FlowScript / FlowScript Editor
+FlowScript is a node based visual scripting system powered by JavaScript. 
+FlowScript Editor is a modern interface that allows you to edit FlowScript node graphs. 
 
-| :exclamation: THIS APP IS IN BETA, JUST LIKE THE GAME!! PLEASE REPORT ANY BUGS! |
+| :exclamation: THIS APP IS IN BETA!! PLEASE REPORT ANY BUGS! |
 |---|
 <hr class="mt-1">
 
