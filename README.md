@@ -12,9 +12,8 @@
 <hr class="mt-1">
 
 
-### What is FlowScript / FlowScript Editor
-FlowScript is a node based visual scripting system powered by JavaScript. 
-FlowScript Editor is a modern interface that allows you to edit FlowScript node graphs. 
+### What is FlowScript
+FlowScript is a node based visual scripting system powered by JavaScript. With a modern interface that allows you to edit FlowScript node graphs, writing javascript simple applications has never been easier! 
 
 | :exclamation: THIS APP IS IN BETA!! PLEASE REPORT ANY BUGS! |
 |---|
@@ -31,7 +30,6 @@ FlowScript Editor is a modern interface that allows you to edit FlowScript node 
 ### FlowScript Features
 - Painless Installation 
 - Easily Navigatible Modern UI 
-- 
 - Automatic App Updates (FlowScript Editor will always be the latest version)
 - Customizable Theme + Multiple Defaults 
 - Optional Minimize to System Tray
