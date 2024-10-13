@@ -1,7 +1,7 @@
 
 
 <div align="center">
-    <img style="max-height: 256px; width: auto;" src="resources/images/flowscript-haeder.png" title="Main Logo" />
+    <img style="max-height: 256px; width: auto;" src="resources/images/flowscript-header.png" title="Main Logo" />
     <div class="row" style="margin: 12px;">
         <img src="https://img.shields.io/github/downloads/Dekita/flowscript/total?style=for-the-badge&logo=github">
         <a class="mx-2" href="https://discord.gg/WyTdramBkm" target="_blank">
