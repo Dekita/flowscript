@@ -1,0 +1,94 @@
+{
+    "nodes": [
+        {
+            "id": "node1728819187447651",
+            "type": "runFlowScript",
+            "position": {
+                "x": 602.0363876146677,
+                "y": 858.8247183268176
+            },
+            "dragHandle": ".card-title",
+            "data": {
+                "inputPins": [],
+                "outputPins": [
+                    {
+                        "label": "ExecOut",
+                        "type": "exec"
+                    }
+                ],
+                "nodeColor": "var(--dek-danger-normal)",
+                "nodeLabel": "Run FlowScript"
+            },
+            "measured": {
+                "width": 240,
+                "height": 68
+            }
+        },
+        {
+            "id": "node1728819196362282",
+            "type": "speakWithGPT",
+            "position": {
+                "x": 900,
+                "y": 860
+            },
+            "dragHandle": ".card-title",
+            "data": {
+                "inputPins": [
+                    {
+                        "label": "ExecIn",
+                        "type": "exec"
+                    },
+                    {
+                        "label": "API Key",
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "label": "Model",
+                        "type": "string",
+                        "default": "gpt-4"
+                    },
+                    {
+                        "label": "Message",
+                        "type": "string",
+                        "default": ""
+                    }
+                ],
+                "outputPins": [
+                    {
+                        "label": "ExecOut",
+                        "type": "exec"
+                    },
+                    {
+                        "label": "Success",
+                        "type": "boolean"
+                    },
+                    {
+                        "label": "Response",
+                        "type": "string"
+                    }
+                ],
+                "nodeColor": "var(--dek-info-normal)",
+                "nodeLabel": "Speak With ChatGPT"
+            },
+            "measured": {
+                "width": 330,
+                "height": 278
+            },
+            "selected": false,
+            "dragging": false
+        }
+    ],
+    "edges": [
+        {
+            "source": "node1728819187447651",
+            "sourceHandle": "node-node1728819187447651-output-0-exec",
+            "target": "node1728819196362282",
+            "targetHandle": "node-node1728819196362282-input-0-exec",
+            "style": {
+                "strokeWidth": 3
+            },
+            "id": "xy-edge__node1728819187447651node-node1728819187447651-output-0-exec-node1728819196362282node-node1728819196362282-input-0-exec"
+        }
+    ]
+}

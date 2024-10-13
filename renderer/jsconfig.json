@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@utils/*": ["utils/*"],
+            "@hooks/*": ["hooks/*"],
+            "@config/*": ["config/*"],
+            "@styles/*": ["styles/*"],
+            "@svgs/*": ["public/svgs/*"],
+            "@markdown/*": ["markdown/*"],
+            "@components/*": ["components/*"],
+            "@flowscript/*": ["flowscript/*"]
+        }
+    }
+}

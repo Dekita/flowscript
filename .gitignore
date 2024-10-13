@@ -1,0 +1,22 @@
+# dependencies
+node_modules
+
+# logs
+*.log
+
+# next.js
+.next
+next-env.d.ts
+
+# build & Local testing app cache directory
+app
+build
+cache
+dist
+
+# local env files
+.env*.local
+
+# additional
+/renderer/public/svgs/font-awesome
+.env

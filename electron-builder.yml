@@ -1,0 +1,44 @@
+appId: com.dekitarpg.flowscript
+productName: FlowScript
+copyright: Copyright © 2024 DekitaRPG@gmail.com
+
+directories:
+  output: dist
+  buildResources: resources
+
+files:
+  - from: .
+    filter:
+      - package.json
+      - app
+
+# - from: resources/vbs
+extraFiles:
+  - from: node_modules/regedit/vbs
+    to: resources/vbs
+
+publish:
+  provider: github
+  owner: dekita
+  repo: flowscript
+  releaseType: release
+
+win:
+  target: nsis
+  icon: resources/images/icon.png
+
+linux:
+  target: AppImage
+  icon: resources/images/icon.png
+  category: Utility
+
+nsis:
+  allowToChangeInstallationDirectory: true
+  uninstallerIcon: resources/images/icon.ico
+  installerIcon: resources/images/icon.ico
+  license: LICENSE
+  perMachine: true
+  oneClick: false
+
+appImage:
+  license: LICENSE
