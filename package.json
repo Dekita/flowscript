@@ -1,6 +1,6 @@
 {
     "private": false,
-    "version": "0.0.13",
+    "version": "0.0.15",
     "name": "dekita-flowscript",
     "productName": "FlowScript",
     "description": "FlowScript written by DekitaRPG",
@@ -77,7 +77,7 @@
         "bbcode-to-react/react": "18.3.1"
     },
     "release": {
-        "date": "10/13/2024",
-        "time": "12:07:14 PM"
+        "date": "10/14/2024",
+        "time": "11:15:40 PM"
     }
 }
