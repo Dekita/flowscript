@@ -4,9 +4,9 @@
 ########################################
 */
 
-export default function SmallStrong({ text }) {
+export default function SmallStrong({ className, text }) {
     return (
-        <small>
+        <small className={className}>
             <strong>{text}</strong>
         </small>
     );

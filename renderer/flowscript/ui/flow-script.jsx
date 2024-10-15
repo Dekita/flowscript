@@ -313,8 +313,14 @@ export function Flow() {
         // connectionLineType="smoothstep"
         // elevateEdgesOnSelect={true}
     >
-        <MiniMap />
-        <Controls />
+        <MiniMap 
+            position={['bottom-left', 'bottom-right'][flowSettings.minimapPos]} 
+            pannable={false}
+            zoomable={false}
+        />
+        <Controls 
+            position={['bottom-right', 'bottom-left'][flowSettings.minimapPos]} 
+        />
         <Background gap={gridSize} />
 
         <Panel position="top-center" className='w-100 m-0'>

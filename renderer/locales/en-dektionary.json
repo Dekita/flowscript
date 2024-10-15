@@ -27,108 +27,23 @@
         }
     },
     
-    "games": {
-        "generic": {
-            "name": "Generic Game",
-            "info": [
-                "This is a game where you can do stuff and things.",
-                "You can play this game with mods to enhance your experience, and even play with friends on modified servers.",
-                "Or.. You could choose to play plain old vanilla without any mods at all, but that's super boring."
-            ],
-            "theme-images": ["ThemeImageNameArray"]
-        },
-        "hogwarts-legacy": {
-            "name": "Hogwarts Legacy",
-            "info": [
-                "Hogwarts Legacy is an immersive, open-world action RPG set in the magical world first introduced in the Harry Potter book series.",
-                "{{games.generic.info.1}}",
-                "{{games.generic.info.2}}"
-            ],
-            "theme-images": ["Hogwarts", "Hogwarts2", "Hogwarts3"]
-        },
-        "ff7r": {
-            "name": "Final Fantasy VII Remake Integrade",
-            "info": [
-                "Final Fantasy VII Remake Integrade is a modern reimagining of the iconic RPG that not only defined an entire genre, but also changed the way we tell stories in video games.",
-                "{{games.generic.info.1}}",
-                "{{games.generic.info.2}}"
-            ],
-            "theme-images": ["FF7R", "FF7R2", "FF7R3"]
-        },
-        "palworld": {
-            "name": "Palworld",
-            "info": [
-                "Palworld is a game where you can catch your own party of creatures, have them build and farm at your base, while you explore and enjoy the game world with your friends.",
-                "{{games.generic.info.1}}",
-                "{{games.generic.info.2}}"
-            ],
-            "theme-images": ["3pals", "Grizzbolt", "Lamball"]
-        }
-    },
-    
     "modals": {
-        "check-mods": {
-            "head": "Check Installed Mods",
-            "update": "Update Mods",
-            "install": "Install Mods",
-            "validate": "Validate Files",
-            "copy-json": "Copy JSON",
-            "save-json": "Save JSON",
-            "load-json": "Load From File"
-        },
-        "load-mods": {
-            "head": "Load New Modlist",
-            "help": "Paste {{app.brandname}} Mod List JSON here...",
-            "load": "Download & Install"
-        },
-        "play-vanilla": {
-            "head": "Play Vanilla {{game.name}}",
-            "info": "Clicking the {{common.confirm}} button below will remove all mods installed by the {{app.brandname}} and then attempt to launch the {{game.name}}. This action is irreversible once started.",
-            "warn": "Are you sure you want to continue?"
-        },
-        "mod-table": {
-            "name": "Mod Name",
-            "author": "Author",
-            "version": "Version",
-            "modids": "Mod/File ID",
-            "status": "Status"
-        },
-        "mod-details": {
-            "tabs": ["Details", "Download"],
-            "view-page": "View on {{common.nexus}}",
-            "file-info": "Uploaded: {{date}} - {{size}}",
-            "file-version": "v{{file.version}} - {{file.file_name}}",
-            "remove": "Remove files from cache",
-            "uninstall": "Uninstall mod files",
-            "download": "Download mod files",
-            "popups": {
-                "view-tree": "View File Tree",
-                "view-scan": "Virus Scan Results",
-                "uninstall": "Uninstall mod files from your local game directory.",
-                "download": "Download mod files to the {{app.brandname}} cache directory.",
-                "install": "Install mod files to your local game directory."
-            }
-        },
-        "server-details": {
-            "tabs": ["Details", "Settings", "Mods"],
-            "join": "Join Server",
-            "mods-required": "You must install the required mods to join this server.",
-            "pass-required": "A password is required to join this server.",
-            "join-discord": "Join {{server.serverName}} Discord",
-            "install-mods": "Install {{server.serverName}} Mod List",
-            "install-note": "Note: alters your active mod list"
-        },
-        "game-config": {
-            "head": "Game & Modloader Settings",
-            "tabs": ["Game Setup", "UE4SS Config"],
-            "game-path": "Game Installation Path",
-            "game-path-desc": "The path to your local {{game.name}} installation.",
-            "ue4ss-path": "UE4SS Installation Path",
-            "ue4ss-path-desc": "The path to your UE4SS installation."
-        },
-        "modloader": {
-            "installing-ue4ss": "Installing UE4SS.. Please Wait."
-        }
+
+    },
+
+    "flowscript": {
+        "settings-head": "FlowScript Settings",
+        "gridSnap-name": "Grid Snap",
+        "gridSnap-desc": "The size of the grid snap within the UI",
+        "gridSize-name": "Grid Size",
+        "gridSize-desc": "The size of the grid within the UI",
+        "nodeBorder-name": "Node Border",
+        "nodeBorder-desc": "Display a border around nodes within the UI",
+        "nodeBorderRadius-name": "Node Border Radius",
+        "nodeBorderRadius-desc": "The radius of the node border within the UI",
+        "minimapPos-name": "MiniMap Position",
+        "minimapPos-desc": "The position of the map within the UI",
+        "minimapPos-opts": ["Bottom Left", "Bottom Right"]
     },
 
     "#updater": {
@@ -143,112 +58,13 @@
     },
 
     "#footer": {
+        "patreon": "Support this project on Patreon",
+        "app-author": "Created by {{app.devname}}",
         "hover-nexus-api": "{{common.nexus}} API Rate Limits: Hourly / Daily",
         "hover-users-api": "The number of people using {{app.brandname}} within 24 hours!",
         "users-today": "{{amount}} Users Today!"
     },
 
-    "/play": {
-        "name": "Play",
-        "desc": "Play like a boss, with mods!",
-        "head": "{{/play.name}} {{game.name}}",
-        "launch-main": "Launch {{game.name}}",
-        "launch-info": "With Installed Mods!",
-        "vanilla-main": "Play Vanilla {{game.name}}",
-        "vanilla-info": "Uninstalls ALL Mods!",
-        "check-mods-main": "Check Mods",
-        "check-mods-info": "Update & Validate Files!",
-        "load-mods-main": "Load New Modlist",
-        "load-mods-info": "Change your active mods!"
-    },
-
-    "/mods": {
-        "name": "Mods",
-        "desc": "Manage your mods with ease!",
-        "head": "{{/mods.name}} {{game.name}}",
-        "tabs": ["Installed", "Downloaded", "Latest", "Trending", "Updated"],
-        "powered": "mod listing powered by",
-        "search-placeholder": "Enter a {{common.nexus}} url or mod id to view a specific mod",
-        "search-button": "Find",
-        "curr-list": "Current Mod List",
-        "save-list": "Save Mod List"
-    },
-    
-    "/servers": {
-        "name": "Servers",
-        "desc": "Join custom servers with ease!",
-        "betawarn": "THE SERVER LISTING FEATURE IS CURRENTLY IN BETA",
-        "players": "Players: {{server.playerCount}} / {{server.serverPlayerMaxNum}}",
-        "powered": "server listing powered by",
-
-        "list-button": {
-            "head": "List Your Modified Server Here!!",
-            "info": "-- FEATURE COMING SOON",
-            "span": "Get access to the our API to list your server here, share it with the community, and get more players!"
-        }
-    },
-    
-    "/about": {
-        "name": "About",
-        "desc": "{{app.brandname}} is an application that allows you to download and easily manage mods from the {{common.nexus}} website. This application is built using modern technologies and is designed to be as simple and easy to use as possible. If you encounter any bugs or issues, please let us know!",
-        "head": "{{/about.name}} {{app.brandname}}",
-        "main": "{{app.brandname}} is an application that allows you to download and easily manage mods for {{game.name}} from the {{common.nexus}} website. This application is built using modern technologies and is designed to be as simple and easy to use as possible. If you encounter any bugs or issues, please let us know!",
-        "notice": "This application is not affiliated with, or endorsed by the developers of Palworld.",
-        "discord": "Join Support Server",
-        "patreon": "Support Development",
-        "features": {
-            "head": "Features",
-            "list": [
-                "Source code hosted on github for the world to see",
-                "Download, and install mods from {{common.nexus}}",
-                "Manage your mod library with minimal clicks",
-                "Effortlessly join custom modified servers"
-            ]
-        }
-    },
-
-    "/privacy": {
-        "name": "Privacy",
-        "desc": "Learn how we handle your data!",
-        "tldr": "tldr: we dont collect your data at all!",
-        "head": "Privacy Policy"
-    },
-    
-    "/terms": {
-        "name": "Terms",
-        "desc": "Learn about our terms of service!",
-        "head": "Terms of Service"
-    },
-    
-    "/faq": {
-        "name": "FAQs",
-        "desc": "Frequently Asked Questions",
-        "head": "{{app.brandname}} FAQ",
-        "faqs": [
-            {   "q": "What is {{app.brandname}}?",
-                "a": "{{app.brandname}} is a mod management application designed to make it easy for users to not only modify their game, but also list modified servers, and make downloading their required mods and joining them, considerably easier."
-            },
-            {   "q": "How to set Local Palworld Game Installation Path?",
-                "a": "To set the local Palworld game installation path, click on the settings icon in the top right corner of the application, and then click on the 'Game Installation Path' option. You can then enter the path to your Palworld game installation folder. For steam users this might look like `C:/Program Files (x86)/Steam/steamapps/common/Palworld`. For Xbox Gamepass users: `C:/XboxGames/Palworld/Content`"
-            },
-            {   "q": "",
-                "a": ""
-            },
-            {   "q": "",
-                "a": ""
-            }
-        ]
-    },
-    
-    "/logs": {
-        "name": "Logs",
-        "desc": "View the logs of the application and your games!",
-        "head": "{{app.brandname}} Logs",
-        "tabs": ["Application", "Game"],
-        "words": ["Printing game logs since 2024..."],
-        "open-file": "Open File Location"
-    },
-    
     "/settings": {
         "name": "Settings",
         "desc": "Customize your experience!",
@@ -349,10 +165,6 @@
             "info": "-- FEATURE COMING SOON",
             "span": "Add new games to {{app.brandname}} to manage mods for them."
         }
-    },
-
-    "ue4ss-settings": {
-        
     }
 }
 

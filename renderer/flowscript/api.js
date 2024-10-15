@@ -235,6 +235,7 @@ const processGraph = async ({ nodes, edges }) => {
         };
 
         const setOutputValue = (label, value) => {
+            logv('Setting Output Value:', label, value);
             outputsCache[node.id] = outputsCache[node.id] ?? {};
             outputsCache[node.id][label] = value;
         }

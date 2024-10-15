@@ -6,6 +6,7 @@ const initialSettings = {
     gridSize: {value: 20, min: 8, max: 64, step: 2},
     nodeBorder: true, 
     nodeBorderRadius: {value: 0, min: 0, max: 20, step: 1},
+    minimapPos: 0, // 0=top-left, 1=top-right, 2=bottom-left, 3=bottom-right
 }
 
 const FlowSettingsContext = React.createContext();

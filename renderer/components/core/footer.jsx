@@ -12,6 +12,7 @@ import Image from 'react-bootstrap/Image';
 
 import * as CommonIcons from '@config/common-icons';
 import useLocalization from '@hooks/useLocalization';
+import SmallStrong from './smstr';
 // import useAppLogger from '@hooks/useAppLogger';
 
 
@@ -60,25 +61,29 @@ export default function Footer() {
     return <footer className='footer darker-bg3 text-center p-3'>
         <div className='row position-absolute w-100 text-dark'>
             <div className='col text-start'>
-                <OverlayTrigger placement='top' delay={delay} overlay={<Tooltip className="text-end">{t('#footer.hover-nexus-api')}</Tooltip>}>
-                    <small className='px-5'>{rateLimits}</small>
+                <OverlayTrigger placement='top' delay={delay} overlay={<Tooltip className="text-end">{t('#footer.hover-users-api')}</Tooltip>}>
+                    <small className='px-2 pe-5'>{t('#footer.users-today', {amount: userCount})}</small>
                 </OverlayTrigger>
             </div>
-            <div className='col text-end'>
-                <OverlayTrigger placement='top' delay={delay} overlay={<Tooltip className="text-end">{t('#footer.hover-users-api')}</Tooltip>}>
-                    <span className=''>
-                        <CommonIcons.account height='1rem' fill='currentColor' />
-                        <small className='ps-2 pe-5'>{t('#footer.users-today', {amount: userCount})}</small>
-                    </span>
-                </OverlayTrigger>
+            <div className='col-auto text-end'>
+                <Link href='https://dekitarpg.com' target='_blank' className='btn py-0 hover-secondary'>
+                    <SmallStrong className='px-2 ps-5' text={t('#footer.app-author')} />
+                </Link>
             </div>
         </div>
-        <div className='to-contain-the-overlay-properly'>
+        <div className='d-flex'>
             <OverlayTrigger placement='left' delay={delay} overlay={<Tooltip className="text-end">
                 <Image src='https://img.shields.io/discord/1132980259596271657?logo=discord&style=for-the-badge&logoColor=e4e4e4&label=Support%20Server' fluid />
                 </Tooltip>}>
                 <Link href='https://discord.gg/WyTdramBkm' target='_blank' className='btn hover-secondary'>
                     <CommonIcons.discord height='1.6rem' fill='currentColor' style={{ opacity: 0.5 }}/>
+                </Link>
+            </OverlayTrigger>
+            <OverlayTrigger placement='right' delay={delay} overlay={<Tooltip className="">
+                    <small className='px-2'>{t('#footer.patreon')}</small>
+                </Tooltip>}>
+                <Link href='https://patreon.com/dekitarpg' target='_blank' className='btn hover-secondary'>
+                    <CommonIcons.patreon height='1.6rem' fill='currentColor' style={{ opacity: 0.5 }}/>
                 </Link>
             </OverlayTrigger>
         </div>

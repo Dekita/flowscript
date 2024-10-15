@@ -19,8 +19,6 @@ import * as CommonIcons from '@config/common-icons';
 // import navbar_items from '@config/navbar-items';
 // import useAppLogger from '@hooks/useAppLogger';
 
-
-
 export default function MainNavbar(callbacks) {
     // const logger = useAppLogger('components/core/navbar');
     const { t } = useLocalization();
