@@ -47,7 +47,7 @@ export default function DekSwitch({
                     <Icon fill='currentColor' width='1rem' height='1rem' style={{marginTop:-4}} />
                 </div>
                 <div className={'w-100 btn '+(checked ? `btn-${color}` : `btn-dark hover-${color}`)+(skinny?' p-0' : ' py-2')}>
-                    {text}
+                    {skinny ? <small>{text}</small> : text}
                 </div>
             </div>
             {/* {!!text && <p className='d-inline px-2'>{text}</p>} */}
