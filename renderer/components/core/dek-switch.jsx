@@ -4,7 +4,7 @@
 ########################################
 */
 import * as CommonIcons from 'config/common-icons';
-import { useCallback, useMemo, useState } from 'react';
+import React from 'react';
 
 const DEFAULT_ICONS = {
     enabled: CommonIcons.tog_enabled,
@@ -24,7 +24,7 @@ export default function DekSwitch({
 }) {
     // const [active, setActive] = useState(checked);
     const Icon = checked ? icons.enabled : icons.disabled;
-    const onClickedBox = useCallback(() => {
+    const onClickedBox = React.useCallback(() => {
         const newval = !checked;
         onClick(newval);
         return newval;
@@ -39,7 +39,7 @@ export default function DekSwitch({
     // overwrite text if labels exist:
     text = labels[checked ? 0 : 1] ?? text;
 
-    return <>
+    return <React.Fragment>
         <div className={'' + className} style={{ ...style }}>
             <div className='btn-group dek-switch w-100' role="group" style={{minWidth: 128}} onClick={onClickedBox} >
                 <div className={`btn btn-dark hover-${color} text-center px-0 py-1`} style={{maxWidth: maxIconWidth}}>
@@ -51,5 +51,5 @@ export default function DekSwitch({
             </div>
             {/* {!!text && <p className='d-inline px-2'>{text}</p>} */}
         </div>
-    </>
+    </React.Fragment>
 }

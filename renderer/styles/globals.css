@@ -274,6 +274,12 @@ small {
     background-size: cover;
 }
 
+.flowscript-bg::before {
+    background: url('/img/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+
 .game-bg-full {
     height: calc(100% - 40px) !important;
 }

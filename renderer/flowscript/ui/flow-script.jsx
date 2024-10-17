@@ -6,6 +6,7 @@ import {
     Panel, 
     MiniMap, 
     Controls, 
+    ControlButton,
     Background, 
     useNodesState, 
     useEdgesState, 
@@ -23,10 +24,11 @@ import FlowScriptAPI from '@flowscript/api';
 import BaseNode from '@flowscript/ui/base-node';
 
 import { useFlowSettings } from '@flowscript/ui/flow-settings';
-import FlowToolbar from '@flowscript/ui/flow-toolbar';
 import AddNodePanel from '@flowscript/ui/node-panel';
 import MainNavbar from '@components/core/navbar';
 
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const nodeTypes = Object.keys(FlowScriptAPI.nodeDefinitions).reduce((acc, type) => {
     return { ...acc, [type]: BaseNode };
@@ -44,7 +46,8 @@ const initialEdges = [
 const edgeStyle = { strokeWidth: 3 };
 
 
-export function Flow() {
+
+export function Flow({ThemeController}) {
     const [showModal, setShowModal] = React.useState(false);
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -199,10 +202,14 @@ export function Flow() {
     //     setNodes((nds) => [...nds, newNode]);
     // }, [setNodes]);
 
+
+    const fitviewOptions = { padding: 0.25, duration: 500 };
+
     const resetGraphToDefault = React.useCallback(() => {
         setNodes(initialNodes);
         setEdges(initialEdges);
-    }, [setNodes, setEdges]);
+        setTimeout(() => reactFlowInstance.fitView(fitviewOptions));
+    }, [setNodes, setEdges, reactFlowInstance]);
 
     const loadGraphFromFile = React.useCallback(async() => {
         console.log('Loading Graph from File');
@@ -219,8 +226,10 @@ export function Flow() {
             console.log({ json });
             setNodes(json.nodes);
             setEdges(json.edges);
+            // after loading the graph, fit the view to the new graph
+            setTimeout(() => reactFlowInstance.fitView(fitviewOptions));
         }
-    }, []);
+    }, [reactFlowInstance]);
 
     const saveGraphToFile = React.useCallback(async() => {
         console.log('Saving Graph to File');
@@ -254,8 +263,8 @@ export function Flow() {
         setNodePortalVisible(false);
     }, [setNodePortalVisible]);
 
-    const onProcessNodeGraph = React.useCallback(() => {
-        FlowScriptAPI.processGraph({nodes, edges});
+    const onProcessNodeGraph = React.useCallback(async () => {
+        await FlowScriptAPI.processGraph({nodes, edges});
     }, [nodes, edges]);
 
     // Callback for when nodes are deleted
@@ -263,6 +272,11 @@ export function Flow() {
         console.log('Deleted nodes:', deletedNodes);
         // You can perform additional actions here when nodes are deleted
     };
+
+    const [isInteractive, setIsInteractive] = React.useState(true);
+    const toggleInteractivity = React.useCallback(() => {
+        setIsInteractive((prev) => !prev);
+    }, [setIsInteractive]);
 
     // Delete nodes when the "Delete" key is pressed
     // React.useEffect(() => {
@@ -312,15 +326,26 @@ export function Flow() {
         connectionRadius={24}
         // connectionLineType="smoothstep"
         // elevateEdgesOnSelect={true}
+
+        nodesDraggable={isInteractive}
+        nodesConnectable={isInteractive}
+        elementsSelectable={isInteractive}        
     >
         <MiniMap 
+            style={{backgroundColor: 'var(--dek-darker-3)'}}
+            ariaLabel="FlowScript MiniMap"
+            nodeColor={(node) => node.data.nodeColor}
+            maskColor="var(--dek-darker-2)"
             position={['bottom-left', 'bottom-right'][flowSettings.minimapPos]} 
-            pannable={false}
-            zoomable={false}
+            pannable={flowSettings.minimapPan}
+            zoomable={flowSettings.minimapZoom}
         />
-        <Controls 
+        {/* <Controls 
+            style={{backgroundColor: 'var(--dek-darker-3)'}}
             position={['bottom-right', 'bottom-left'][flowSettings.minimapPos]} 
-        />
+        /> */}
+        <CustomControls {...{isInteractive, toggleInteractivity}}/>
+        
         <Background gap={gridSize} />
 
         <Panel position="top-center" className='w-100 m-0'>
@@ -331,21 +356,13 @@ export function Flow() {
                     loadGraphFromFile,
                     saveGraphToFile,
                     showFlowSettings,
+                    FlowScriptAPI,
                 }} />
             </div>
-            {/* <div className='p-2'>
-                <FlowToolbar {...{
-                    onProcessNodeGraph, 
-                    resetGraphToDefault,
-                    loadGraphFromFile,
-                    saveGraphToFile,
-                    showFlowSettings,
-                }}/>
-            </div> */}
         </Panel>
 
 
-        {nodePortalVisible && <AddNodePanel {...{nodePortalPosition, hideNodePortal, onClickNode, portalConnectionType}} />}
+        {nodePortalVisible && <AddNodePanel {...{nodePortalPosition, hideNodePortal, onClickNode, portalConnectionType, flowSettings}} />}
         {/* <Panel position="top-center" className='bg-darkest radius9 p-2'>
         </Panel> */}
         <FlowSettingsModal {...{
@@ -353,6 +370,65 @@ export function Flow() {
             setShow: setShowModal,
             flowSettings,
             updateFlowSetting,
+            ThemeController,
         }}/>
     </ReactFlow>;
+}
+
+
+function CustomControls({isInteractive, toggleInteractivity}) {
+    const { flowSettings } = useFlowSettings();
+    const ReactFlow = useReactFlow();
+    const { t } = useLocalization();
+    const controlsOpts = {
+        // orientation: 'horizontal',
+        style: { backgroundColor: 'var(--dek-darker-3);' },
+        position: ['bottom-right', 'bottom-left'][flowSettings.minimapPos],
+        showInteractive: false,
+        showFitView: false,
+        showZoom: false, 
+    }
+    const iconOptions = {
+        width: '1.6rem',
+        height: '1.6rem',
+        fill: 'currentColor',
+        style: { opacity: 0.5 }
+    }
+    const btnOptions = {
+        className: 'btn btn-dark border-0 radius0 hover-secondary p-1',
+    }
+
+    const InteractiveIcon = isInteractive ? CommonIcons.unlock : CommonIcons.lock;
+    const delay = { show: 100, hide: 250 };
+
+    const ButtonWrapper = ({locTextID, children}) => {
+        const delay = { show: 100, hide: 250 };
+        return <OverlayTrigger placement='left' delay={delay} overlay={<Tooltip className="">
+                <small className='px-2'>{t(locTextID)}</small>
+            </Tooltip>}>{children}
+        </OverlayTrigger>
+    }
+
+    return <Controls {...controlsOpts}>
+        <ButtonWrapper locTextID='controls.zoomin'>
+            <div {...btnOptions} onClick={() => ReactFlow.zoomIn()}>
+                <CommonIcons.plus {...iconOptions} />
+            </div>
+        </ButtonWrapper>
+        <ButtonWrapper locTextID='controls.zoomout'>
+            <div {...btnOptions} onClick={() => ReactFlow.zoomOut()}>
+                <CommonIcons.minus {...iconOptions} />
+            </div>
+        </ButtonWrapper>
+        <ButtonWrapper locTextID='controls.fitview'>
+            <div {...btnOptions} onClick={() => ReactFlow.fitView({padding: 0.5})}>
+                <CommonIcons.jitter {...iconOptions} />
+            </div>
+        </ButtonWrapper>
+        <ButtonWrapper locTextID='controls.interactivity'>
+            <div {...btnOptions} onClick={toggleInteractivity}>
+                <InteractiveIcon {...iconOptions} />
+            </div>
+        </ButtonWrapper>
+    </Controls>;
 }

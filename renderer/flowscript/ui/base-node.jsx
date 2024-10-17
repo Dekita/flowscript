@@ -16,28 +16,31 @@ import FlowScriptAPI from '@flowscript/api';
 export default function BaseNode(params) {
     // console.log('BaseNode', params);
     const {id, data={}} = params;
-    const nodeStyles = {minWidth: 240, maxWidth: 420};
     const {inputPins=[], outputPins=[], nodeColor='chucknorris', nodeLabel=null} = data;
-
-
+    
+    
     // const reactFlow = useReactFlow();
     const onPinContextMenu=()=>{};
     const { t, tA } = useLocalization();
     const { flowSettings, updateFlowSetting } = useFlowSettings();
     
     // inputPins = [
-    //     { label: 'ExecIn', type: 'exec' },
-    //     { label: 'Number', type: 'number' },
-    //     { label: 'String', type: 'string' },
-    // ];
-
-    // outputPins = [
-    //     { label: 'ExecOut', type: 'exec' },
-    //     { label: 'Number', type: 'number' },
-    // ];
-
+        //     { label: 'ExecIn', type: 'exec' },
+        //     { label: 'Number', type: 'number' },
+        //     { label: 'String', type: 'string' },
+        // ];
+        
+        // outputPins = [
+            //     { label: 'ExecOut', type: 'exec' },
+            //     { label: 'Number', type: 'number' },
+            // ];
+            
     let borderColor = flowSettings?.nodeBorder ? nodeColor : 'transparent';
     if (params.selected) borderColor = 'var(--dek-text-color)';
+
+    const nodeStyles = {};
+    nodeStyles.minWidth = 128;
+    nodeStyles.maxWidth = 256;
     
     const cardStyle = {};
     cardStyle.border = `solid 2px ${borderColor}`;
@@ -53,6 +56,11 @@ export default function BaseNode(params) {
     titleStyle.borderBottomRightRadius = 0;
     // titleStyle.borderBottom = `solid 2px ${borderColor}`;
 
+    const bodyStyle = {};
+    bodyStyle.borderRadius = 0 ;
+    bodyStyle.borderBottomLeftRadius = cardStyle.borderRadius;
+    bodyStyle.borderBottomRightRadius = cardStyle.borderRadius;
+
     const { JSX=null } = FlowScriptAPI.nodeDefinitions[params.type];
     // console.log('FlowScriptAPI.nodeDefinitions:', FlowScriptAPI.nodeDefinitions[params.type])
 
@@ -64,7 +72,7 @@ export default function BaseNode(params) {
             <Card.Title className='d-flex justify-content-between px-2 pb-1 mb-0' style={titleStyle}>
                 <strong><small>{nodeLabel}</small></strong>
             </Card.Title>
-            <Card.Body className='text-start p-0 card radius0'>
+            <Card.Body className='text-start p-0 pt-1 card radius0' style={bodyStyle}>
                 {/* <div className='d-flex justify-content-between px-2 pb-1'  style={{backgroundColor:nodeColor}}>
                     <strong><small>{nodeLabel}</small></strong>
                 </div> */}

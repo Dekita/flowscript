@@ -9,20 +9,19 @@ import { useEffect, useState } from 'react';
 // theme files should be located in /public/themes
 export const THEMES = [
     'palhub', 
-    'ikon',
-    'khakii',
-    
-    
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    
+    'dark1',
+
+    // 'ikon',
+    // 'khakii',
+    // '1',
+    // '2',
+    // '3',
+    // '4',
+    // '5',
+    // '6',
+    // '7',
+    // '8',
+    // '9',
     // 'vivid1',
     // 'dek-dark',
     // 'dek-light',

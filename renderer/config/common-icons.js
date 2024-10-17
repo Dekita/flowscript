@@ -78,16 +78,23 @@ export { default as terms } from '@svgs/fa5/regular/file-contract.svg';
 export { default as discord }  from '@svgs/fa6/brands/discord.svg';
 export { default as patreon }  from '@svgs/fa6/brands/patreon.svg';
 export { default as paypal }  from '@svgs/fa6/brands/paypal.svg';
-export { default as github }  from '@svgs/fa6/brands/github.svg';
+export { default as github }  from '@svgs/fa6/brands/github-alt.svg';
 export { default as steam }  from '@svgs/fa6/brands/steam.svg';
 export { default as xbox }  from '@svgs/fa6/brands/xbox.svg';
 export { default as epic }  from '@svgs/epic-logo-text.svg';
 
 export { default as plus } from '@svgs/fa5/duotone/plus-square.svg';
+export { default as minus } from '@svgs/font-awesome/fa5/duotone/minus-square.svg';
+export { default as network } from '@svgs/fa5/duotone/network-wired.svg';
 
 export { default as terminal } from '@svgs/font-awesome/fa5/duotone/terminal.svg';
 export { default as brackets } from '@svgs/font-awesome/fa5/duotone/brackets-curly.svg';
 
+export { default as lock } from '@svgs/font-awesome/fa5/duotone/lock-alt.svg';
+export { default as unlock } from '@svgs/font-awesome/fa5/duotone/unlock-alt.svg';
+
+export { default as vector } from '@svgs/font-awesome/fa5/duotone/vector-square.svg';
+export { default as bordernone } from '@svgs/font-awesome/fa5/duotone/border-none.svg';
 
 // export {default as IconPreview} from '@svgs/fa5/duotone/file-image.svg';
 // export {default as IconSliders} from '@svgs/fa5/duotone/tasks-alt.svg';

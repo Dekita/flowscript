@@ -118,6 +118,7 @@ export const CommonAppDataProvider = ({ children }) => {
     // 
     const router = useRouter();
     const refreshCommonDataWithRedirect = React.useCallback(async () => {
+        setRequiredModulesLoaded(true);
         return ;
         
         // get the api keys, cache, and games
@@ -150,7 +151,7 @@ export const CommonAppDataProvider = ({ children }) => {
     // ensures that all required modules are fully loaded
     React.useEffect(() => {
         if (typeof window === 'undefined') return;
-        const REQUIRED_MODULES = ['uStore', 'palhub', 'nexus', 'logger', 'ipc'];
+        const REQUIRED_MODULES = ['uStore', 'palhub', 'ipc'];
         if (REQUIRED_MODULES.some(module => !window[module])) return;
         refreshCommonDataWithRedirect();
     }, [ready]);

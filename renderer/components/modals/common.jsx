@@ -51,7 +51,7 @@ export function prepareDecription(desc, scanning_env) {
     return desc;
 }
 
-export function ENVEntryLabel({name, envdatas, tooltip}) {
+export function ENVEntryLabel({name, envdatas, tooltip, skinny}) {
 
     // console.log({tooltip})
     const customStyle = {
@@ -98,7 +98,7 @@ export function ENVEntryLabel({name, envdatas, tooltip}) {
 }
 
 
-export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, envdatas, tooltip, type='text', noLabel, disabled=false}) {
+export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, disabled, skinny}) {
     // const [knownValue, setKnownValue] = useState(value);
 
     const onKeyUp = (e) => {
@@ -113,6 +113,12 @@ export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, e
     }
 
     // console.log(name, envdatas[name])
+    // console.log({skinny})
+
+    const skinnySizes = {
+        fontSize: skinny ? '.75rem' : '.75rem',
+        lineHeight: skinny ? '.75rem' : '.75rem',
+    }
 
     return <div className={noLabel ? '' : 'py-2'}>
         {!noLabel && <ENVEntryLabel {...{name,envdatas,tooltip}} />}
@@ -121,22 +127,25 @@ export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, e
             placeholder={name} 
             id={name + "-input"} 
             name={name + "-input"} 
-            className='form-control form-secondary w-100' 
+            className={'form-control form-secondary w-100' + (skinny ? ' ms-1 form-control-sm py-0' : '')} 
             onChange={onChanged} 
             onClick={onClick}
             disabled={disabled}
             autoComplete="off"
             // list="fruitsList"
-            style={{ width: '100%' }}
             onKeyUp={onKeyUp} 
             value={value} 
+            style={{ 
+                width: '100%', 
+                ...skinnySizes,
+            }}
         />
     </div>
 }
 
 
 
-export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, labels}) {
+export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, labels, skinny}) {
     // const [knownValue, setKnownValue] = useState(value);
     // updateSetting(name)
     return <div className={noLabel ? '' : 'py-2'}>
@@ -154,7 +163,7 @@ export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, en
     </div>
 }
 
-export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, disabled, limits}) {
+export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, disabled, limits, skinny}) {
     // const [knownValue, setKnownValue] = useState(value);
     // updateSetting(name)
     return <div className={noLabel ? '' : 'py-2'}>
@@ -174,7 +183,7 @@ export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, e
     </div>
 }
 
-export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=>{}, defaults={}, envdatas={}, tooltip='', type='', labels=null, noLabel=false, disabled=false, limits=null}) {
+export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=>{}, defaults={}, envdatas={}, tooltip='', type='', labels=null, noLabel=false, disabled=false, limits=null, skinny=false}) {
     // value = ensureEntryValueType(value);
     // console.log(`entry for ${name}:`, typeof value, {name, value})
     const { t, tA } = useLocalization();
@@ -183,7 +192,7 @@ export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=
     if (labels && labels.length === 1) labels.push(labels[0]);
 
     if (type === 'numbool') value = value === '1';
-    const passthrough = {name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, labels, disabled, limits};
+    const passthrough = {name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, labels, disabled, limits, skinny};
     if (type === 'numbool') return <ENVEntry_Bool {...passthrough} />
 
     switch (typeof value) {

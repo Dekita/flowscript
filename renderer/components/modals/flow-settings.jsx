@@ -16,7 +16,7 @@ import * as CommonIcons from '@config/common-icons';
 import useCommonChecks from "@hooks/useCommonChecks";
 import checkIsDevEnvironment from '@utils/isDevEnv';
 
-export default function FlowSettingsModal({show,setShow, flowSettings, updateFlowSetting}) {
+export default function FlowSettingsModal({show,setShow, flowSettings, updateFlowSetting, ThemeController}) {
     const { t, tA, changeLanguage, language, VALID_LANGUAGES } = useLocalization();
     const { requiredModulesLoaded, commonAppData } = useCommonChecks();
     const isDevEnvironment = checkIsDevEnvironment();
@@ -81,6 +81,9 @@ export default function FlowSettingsModal({show,setShow, flowSettings, updateFlo
                     onClick={(i, value) => changeLanguage(value)}
                 />
             </React.Fragment>}
+
+            <SettingsPage_Theme ThemeController={ThemeController} />
+
         </div>
         {/* <div type="DekFoot" className='d-flex w-100 gap-3'>
             <Button

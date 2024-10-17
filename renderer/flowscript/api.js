@@ -5,6 +5,8 @@ const VERBOSE_LOG = false;
 const logv = (...args) => VERBOSE_LOG && console.log(...args);
 
 
+let IS_PROCESSING = false;
+
 const generateUniqueId = () => {
     return `node${Date.now()}${Math.floor(Math.random() * 1000)}`;
 };
@@ -143,6 +145,8 @@ const processGraph = async ({ nodes, edges }) => {
     const startNode = findNodeByType('runFlowScript', nodes);
     if (!startNode) return console.error('No Start Node Found');
 
+    IS_PROCESSING = true;
+
     const resultsCache = {};
     const outputsCache = {};
 
@@ -254,6 +258,8 @@ const processGraph = async ({ nodes, edges }) => {
     };
 
     await processNode(startNode);
+
+    IS_PROCESSING = false;
 };
 
 export default {
@@ -270,4 +276,5 @@ export default {
     findPinByData,
     processGraph,
     splitHandle,
+    IS_PROCESSING,
 };

@@ -30,9 +30,9 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
     const isInput = ioType === 'input';
     const pinStyle = isInput ? pinStyleL : pinStyleR;
 
-    const spanStyles = { color: '#E0E4E8', fontSize: '12px' };
-    const spanStyleL = { ...spanStyles, marginLeft: '15px' };
-    const spanStyleR = { ...spanStyles, marginRight: '15px' };
+    const spanStyles = { color: '#E0E4E8', fontSize: '0.75rem', lineHeight: '.75rem' };
+    const spanStyleL = { ...spanStyles, marginLeft: '.25rem' };
+    const spanStyleR = { ...spanStyles, marginRight: '.25rem' };
     const spanStyle = isInput ? spanStyleL : spanStyleR;
 
     const pinPosition = isInput ? Position.Left : Position.Right;
@@ -65,15 +65,17 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
 
     // const pinHasConnection = isInput && params?.data?.connections?.some(c => c.target === id);
 
-    return <div className='px-1' style={pinStyle}>
-        <Handle
-            id={id}
-            type={ioType === 'input' ? 'target' : 'source'}
-            position={pinPosition}
-            style={variablePinStyle(pin.type)}
-            onContextMenu={(event) => onPinContextMenu(event, id)}
-        />
-        <span style={spanStyle}>{pin.label}</span>
+    return <div className='d-flex px-1' style={pinStyle}>
+        <div className=''>
+            <Handle
+                id={id}
+                type={ioType === 'input' ? 'target' : 'source'}
+                position={pinPosition}
+                style={variablePinStyle(pin.type)}
+                onContextMenu={(event) => onPinContextMenu(event, id)}
+            />
+            <span className='' style={spanStyle}>{pin.label}</span>
+        </div>
         {pinHasValue && !pinConnected && <ENVEntry
             value={pin.value ?? pin.default ?? ''}
             // onClick={onClickPathInput}
@@ -81,6 +83,7 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
             name={t(`pins.labels.${pin.label}`)}
             tooltip={t(`pins.tooltips.${pin.label}`)}
             noLabel={true}
+            skinny={true}
         />}
     </div>
 

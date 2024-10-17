@@ -4,7 +4,7 @@
 ########################################
 */
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -16,41 +16,46 @@ import AutoUpdater from '@components/core/autoupdater';
 import useLocalization from '@hooks/useLocalization';
 
 import * as CommonIcons from '@config/common-icons';
+import * as ReactSpinnersKit from 'react-spinners-kit';
+
 // import navbar_items from '@config/navbar-items';
 // import useAppLogger from '@hooks/useAppLogger';
 
-export default function MainNavbar(callbacks) {
+// import FlowScriptAPI from '@flowscript/api';
+
+export default function MainNavbar({FlowScriptAPI, ...callbacks}) {
     // const logger = useAppLogger('components/core/navbar');
-    const { t } = useLocalization();
+    const [isProcessing, setIsProcessing] = React.useState(false);
     const router = useRouter();
     const active_route = router.pathname;
+    const { t } = useLocalization();
 
     // Scroll to top when route changes
-    useEffect(() => {
+    React.useEffect(() => {
         const main_body = document.getElementById('main-body');
         if (main_body) main_body.scrollTo(0, 0); // bottom: main_body.scrollHeight
     }, [active_route]);
 
-    // const is_settings = active_route === '/settings';
-    // const settings_color = is_settings ? 'text-warning' : 'hover-dark hover-secondary';
-    // const settings_classes = `col btn no-shadow p-2 pe-4 my-auto ${settings_color}`;
+    const onProcessGraph = React.useCallback(async () => {
+        setIsProcessing(true);
+        await callbacks.onProcessNodeGraph();
+        setIsProcessing(false);
+    }, [callbacks, setIsProcessing]);
 
-    // if (!ready) return <></>;
-
+    const runGraphClasses = `btn btn-secondary w-100 h-100${isProcessing?' disabled': ''}`;
     const commonIconProps = {
         fill: 'currentColor',
         height: '2rem',
         width: '2rem',
     }
 
-
     return <Navbar className='navbar theme-text'>
         <Container className='theme-text' fluid>
             {/* Area to display all of the regular navigation links */}
             <Nav className='gap-2' activeKey={active_route}>
-
-                <button className="btn btn-secondary w-100 h-100" onClick={callbacks.onProcessNodeGraph}>
-                    <CommonIcons.terminal {...commonIconProps} />
+                <button className={runGraphClasses} disabled={isProcessing} onClick={onProcessGraph}>
+                    {!isProcessing && <CommonIcons.terminal {...commonIconProps} />}
+                    {isProcessing && <ReactSpinnersKit.FillSpinner color='currentColor' size={32} />}
                 </button>
                 <button className="btn btn-primary w-100 h-100" onClick={callbacks.resetGraphToDefault}>
                     <CommonIcons.plus {...commonIconProps} />

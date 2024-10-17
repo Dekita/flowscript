@@ -43,7 +43,11 @@
         "nodeBorderRadius-desc": "The radius of the node border within the UI",
         "minimapPos-name": "MiniMap Position",
         "minimapPos-desc": "The position of the map within the UI",
-        "minimapPos-opts": ["Bottom Left", "Bottom Right"]
+        "minimapPos-opts": ["Bottom Left", "Bottom Right"],
+        "minimapPan-name": "MiniMap Panning",
+        "minimapPan-desc": "Allow the minimap to pan with the main view",
+        "minimapZoom-name": "MiniMap Zoom",
+        "minimapZoom-desc": "Allow the minimap to zoom with the main view"
     },
 
     "#updater": {

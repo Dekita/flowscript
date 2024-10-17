@@ -22,13 +22,19 @@ export default class {
         await logExecutingNodeData(this, ...arguments);
 
         const image_id = createImageID(id);
-        const image = document.getElementById(image_id)
+        const image = document.getElementById(image_id) || new Image();
         image.src = inputValues?.ImageURL;
         return image;
 
     }
     static JSX = ({id}) => {
         const image_id = createImageID(id);
-        return <BSImage id={image_id} alt="Dall-E Image" fluid thumbnail />
+        return <BSImage 
+            src="https://placehold.co/420x180?text=Image+Preview"
+            id={image_id} 
+            alt="Image" 
+            thumbnail 
+            fluid 
+        />
     }
 }

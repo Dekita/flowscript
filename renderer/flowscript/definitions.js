@@ -6,6 +6,8 @@ export { default as runFlowScript } from './nodes/event/runFlowScript';
 export { default as logWildcard } from './nodes/console/logWildcard';
 
 // LOGIC
+export { default as waitDuration } from './nodes/logic/waitDuration';
+export { default as waitPromise } from './nodes/logic/waitPromise';
 export { default as checkCondition } from './nodes/logic/checkCondition';
 export { default as evaluateCode } from './nodes/logic/evaluateJavaScript';
 export { default as loopNumTimes } from './nodes/logic/loopNumTimes';

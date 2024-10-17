@@ -7,6 +7,8 @@ const initialSettings = {
     nodeBorder: true, 
     nodeBorderRadius: {value: 0, min: 0, max: 20, step: 1},
     minimapPos: 0, // 0=top-left, 1=top-right, 2=bottom-left, 3=bottom-right
+    minimapPan: false,
+    minimapZoom: false,
 }
 
 const FlowSettingsContext = React.createContext();

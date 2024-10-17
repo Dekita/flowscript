@@ -56,7 +56,8 @@ export default function DekAppLayoutWrapper({ children }) {
     const windowName = useWindowNameFromDEAP();
     const theme = `/themes/${THEMES[theme_id]}.css`;
     const active_route = useRouter().pathname;
-    const bg = `game-bg-palworld${bg_id+1}`;
+    // const bg = `game-bg-palworld${bg_id+1}`;
+    const bg = 'flowscript-bg';
 
     const modals = {
         // onClickSettings: () => setShowSettingsModal(true),

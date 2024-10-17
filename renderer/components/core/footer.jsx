@@ -58,6 +58,13 @@ export default function Footer() {
     //     <h2>hi</h2>
     // </React.Fragment>;
 
+    const iconOptions = {
+        width: '1.6rem',
+        height: '1.6rem',
+        fill: 'currentColor',
+        style: { opacity: 0.5 }
+    }
+
     return <footer className='footer darker-bg3 text-center p-3'>
         <div className='row position-absolute w-100 text-dark'>
             <div className='col text-start'>
@@ -76,14 +83,23 @@ export default function Footer() {
                 <Image src='https://img.shields.io/discord/1132980259596271657?logo=discord&style=for-the-badge&logoColor=e4e4e4&label=Support%20Server' fluid />
                 </Tooltip>}>
                 <Link href='https://discord.gg/WyTdramBkm' target='_blank' className='btn hover-secondary'>
-                    <CommonIcons.discord height='1.6rem' fill='currentColor' style={{ opacity: 0.5 }}/>
+                    <CommonIcons.discord {...iconOptions} />
                 </Link>
             </OverlayTrigger>
+
+            <OverlayTrigger placement='top' delay={delay} overlay={<Tooltip className="text-end">
+                    <small className='px-2'>{t('#footer.github')}</small>
+                </Tooltip>}>
+                <Link href='https://github.com/dekita/flowscript' target='_blank' className='btn hover-secondary'>
+                    <CommonIcons.github {...iconOptions} />
+                </Link>
+            </OverlayTrigger>
+
             <OverlayTrigger placement='right' delay={delay} overlay={<Tooltip className="">
                     <small className='px-2'>{t('#footer.patreon')}</small>
                 </Tooltip>}>
                 <Link href='https://patreon.com/dekitarpg' target='_blank' className='btn hover-secondary'>
-                    <CommonIcons.patreon height='1.6rem' fill='currentColor' style={{ opacity: 0.5 }}/>
+                    <CommonIcons.patreon {...iconOptions} />
                 </Link>
             </OverlayTrigger>
         </div>
