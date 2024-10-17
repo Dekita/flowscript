@@ -29,6 +29,8 @@ import MainNavbar from '@components/core/navbar';
 
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import {pinTypeColors} from '../utils/color-map';
+
 
 const nodeTypes = Object.keys(FlowScriptAPI.nodeDefinitions).reduce((acc, type) => {
     return { ...acc, [type]: BaseNode };
@@ -44,7 +46,6 @@ const initialEdges = [
 ];
 
 const edgeStyle = { strokeWidth: 3 };
-
 
 
 export function Flow({ThemeController}) {
@@ -132,8 +133,18 @@ export function Flow({ThemeController}) {
             console.log(`Connected as source: ${source} (output pin ${sourceHandle})`);
             // Handle the connection logic when this node is the source
         }
-        setEdges((eds) => addEdge({ ...connection, style: edgeStyle }, eds));
-    }, [setEdges, edges]);
+        setEdges((eds) => {
+            const node = FlowScriptAPI.findNode(source, nodes);
+            const handleData = FlowScriptAPI.splitHandle(sourceHandle);
+            // pinTypeColors[handleData.pinType];
+            // FlowScriptAPI.findPinByData()
+            // console.log({node, handleData});
+            return addEdge({ ...connection, style: { ...edgeStyle,
+                stroke: pinTypeColors[handleData.pinType] ?? node.data.nodeColor,
+                opacity: 0.25,
+            }}, eds);
+        });
+    }, [edges, setEdges, nodes]);
 
     // Handle right-click (context menu) on edges to delete them
     const onEdgeContextMenu = React.useCallback((event, edge) => {
