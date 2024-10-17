@@ -151,7 +151,7 @@ export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, en
     return <div className={noLabel ? '' : 'py-2'}>
         {!noLabel && <ENVEntryLabel {...{name,envdatas,tooltip}} />}
         <DekSwitch
-            className='w-100'
+            className={'ms-1 w-100'}
             maxIconWidth={64}
             labels={labels}
             // icons={NSFWIcons}
@@ -159,6 +159,7 @@ export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, en
             onClick={newval=>updateSetting(name, newval)}
             iconPos='left'
             inline={true}
+            skinny={skinny}
         />
     </div>
 }

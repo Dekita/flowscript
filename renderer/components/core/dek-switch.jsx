@@ -21,6 +21,7 @@ export default function DekSwitch({
     color='secondary',
     labels=['On','Off'],
     maxIconWidth=null,
+    skinny=false,
 }) {
     // const [active, setActive] = useState(checked);
     const Icon = checked ? icons.enabled : icons.disabled;
@@ -41,11 +42,11 @@ export default function DekSwitch({
 
     return <React.Fragment>
         <div className={'' + className} style={{ ...style }}>
-            <div className='btn-group dek-switch w-100' role="group" style={{minWidth: 128}} onClick={onClickedBox} >
-                <div className={`btn btn-dark hover-${color} text-center px-0 py-1`} style={{maxWidth: maxIconWidth}}>
-                    <Icon fill='currentColor' height='1rem' />
+            <div className='btn-group dek-switch w-100' role="group" style={{minWidth: 92}} onClick={onClickedBox} >
+                <div className={`btn btn-dark hover-${color} text-center`+(skinny?' p-0':' py-2')} style={{minWidth: '36px', maxWidth: maxIconWidth}}>
+                    <Icon fill='currentColor' width='1rem' height='1rem' style={{marginTop:-4}} />
                 </div>
-                <div className={'btn '+(checked ? `btn-${color}` : `btn-dark hover-${color}`)}>
+                <div className={'w-100 btn '+(checked ? `btn-${color}` : `btn-dark hover-${color}`)+(skinny?' p-0' : ' py-2')}>
                     {text}
                 </div>
             </div>

@@ -7,7 +7,7 @@
 
     "common": {
         "loading": "Loading...",
-        "toggle": ["Enabled", "Disabled"],
+        "toggle": ["True", "False"],
         "warning": "WARNING",
         "error": "ERROR",
         "nexus": "Nexus Mods",
