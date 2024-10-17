@@ -6,6 +6,7 @@ import { ENVEntry, ENVEntryLabel } from '@components/modals/common';
 import useLocalization from '@hooks/useLocalization';
 
 import {pinTypeColors} from '../utils/color-map';
+import DekSelect from '@components/core/dek-select';
 
 const roundPinStyle = {
     borderRadius: '50%',
@@ -76,15 +77,30 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
             />
             <span className='' style={spanStyle}>{pin.label}</span>
         </div>
-        {pinHasValue && !pinConnected && <ENVEntry
-            value={pin.value ?? pin.default ?? ''}
-            // onClick={onClickPathInput}
-            updateSetting={onUpdatePinValue}
-            name={t(`pins.labels.${pin.label}`)}
-            tooltip={t(`pins.tooltips.${pin.label}`)}
-            noLabel={true}
-            skinny={true}
-        />}
+        {pinHasValue && !pinConnected && <React.Fragment>
+
+            {pin.type !== 'choice' && <ENVEntry
+                value={pin.value ?? pin.default ?? ''}
+                // onClick={onClickPathInput}
+                updateSetting={onUpdatePinValue}
+                name={t(`pins.labels.${pin.label}`)}
+                tooltip={t(`pins.tooltips.${pin.label}`)}
+                noLabel={true}
+                skinny={true}
+            />}
+            {pin.type === 'choice' && 
+                <DekSelect
+                    disableInput={pinConnected}
+                    active_id={pin.value ?? pin.default ?? 0}
+                    value={pin.value ?? pin.default ?? ''}
+                    onChange={(event, text, innerText, i) => onUpdatePinValue(null, i)}
+                    skinny={true}
+                >
+                    {pin.options?.map((choice, i) => <option key={i} value={i}>{choice}</option>)}
+                </DekSelect>
+            }
+
+        </React.Fragment>}
     </div>
 
 }

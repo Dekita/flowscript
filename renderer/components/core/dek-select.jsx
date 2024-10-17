@@ -40,6 +40,10 @@ export default function DekSelect({
     active_id,
     uid,
     disableInput = false,
+    skinny = false,
+    style = {
+        // height: 24,
+    },
 }) {
     const child_array = Children.toArray(children);
     const active = useMemo(()=>child_array.find((c, index) => {
@@ -80,22 +84,33 @@ export default function DekSelect({
 
     const IconComponent = showUL ? IconDown : IconList;
 
+    const skinnySizes = {
+        fontSize: skinny ? '.8rem' : '.75rem',
+        lineHeight: skinny ? '.9rem' : '.75rem',
+        minHeight: skinny ? '24px' : '42px',
+    }
+    
     const mainclasses = [
-        'form-control btn-select dekselect-secondary',
+        'form-control form-control-sm btn-select dekselect-secondary p-0 ms-1',
         showUL ? 'active' : '',
     ].join(' ');
+
+    const ulStyles = {
+        top: skinny? '20px' : '40px',
+    }
 
     return <div
         className={mainclasses}
         onClick={onClickElement}
         disabled={disableInput}
+        style={{...style, ...skinnySizes}}
         ref={ref}
         id={uid}>
         <small className='btn-select-value form-control'>{selected_text}</small>
         <span className='btn-select-arrow text-center'>
             <IconComponent width={16} height={16} fill='currentColor' />
         </span>
-        <ul className={showUL ? 'd-block thin-scroller' : 'd-none'}>
+        <ul className={showUL ? 'd-block thin-scroller' : 'd-none'} style={ulStyles}>
             {child_array.map((child) => {
                 return <li id={child.props.id} key={child.key || child.props.id} onClick={onClickItem}>
                     {child.props.children ?? (child.props.text || child.key)}
