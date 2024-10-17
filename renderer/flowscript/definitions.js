@@ -4,6 +4,8 @@ export { default as runFlowScript } from './nodes/event/runFlowScript';
 
 // CONSOLE
 export { default as logWildcard } from './nodes/console/logWildcard';
+export { default as logTimer } from './nodes/console/logTimer';
+export { default as logCount } from './nodes/console/logCount';
 
 // LOGIC
 export { default as waitDuration } from './nodes/logic/waitDuration';
