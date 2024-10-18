@@ -21,7 +21,7 @@
             },
             "measured": {
                 "width": 133,
-                "height": 68
+                "height": 72
             },
             "selected": false,
             "dragging": false
@@ -47,7 +47,7 @@
             },
             "measured": {
                 "width": 128,
-                "height": 68
+                "height": 72
             },
             "selected": false,
             "dragging": false
@@ -99,7 +99,7 @@
             },
             "measured": {
                 "width": 256,
-                "height": 236
+                "height": 164
             },
             "selected": false,
             "dragging": false
@@ -135,7 +135,7 @@
             },
             "measured": {
                 "width": 256,
-                "height": 173
+                "height": 177
             },
             "selected": false,
             "dragging": false
@@ -144,7 +144,7 @@
             "id": "node172912837166752",
             "type": "waitDuration",
             "position": {
-                "x": 1500,
+                "x": 1800,
                 "y": 560
             },
             "dragHandle": ".card-title",
@@ -174,7 +174,7 @@
             },
             "measured": {
                 "width": 256,
-                "height": 138
+                "height": 104
             },
             "selected": false,
             "dragging": false
@@ -183,7 +183,7 @@
             "id": "node1729128379559217",
             "type": "logWildcard",
             "position": {
-                "x": 1820,
+                "x": 2100,
                 "y": 560
             },
             "dragHandle": ".card-title",
@@ -210,7 +210,7 @@
             },
             "measured": {
                 "width": 256,
-                "height": 131
+                "height": 135
             },
             "selected": false,
             "dragging": false
@@ -219,8 +219,8 @@
             "id": "node1729128385945366",
             "type": "literalString",
             "position": {
-                "x": 1500,
-                "y": 720
+                "x": 1800,
+                "y": 700
             },
             "dragHandle": ".card-title",
             "data": {
@@ -242,63 +242,139 @@
             },
             "measured": {
                 "width": 256,
-                "height": 110
+                "height": 76
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node172917060438717",
+            "type": "literalString",
+            "position": {
+                "x": 1500,
+                "y": 480
+            },
+            "dragHandle": ".card-title",
+            "data": {
+                "inputPins": [
+                    {
+                        "label": "String",
+                        "type": "string",
+                        "default": "Hello World",
+                        "value": "biglabe"
+                    }
+                ],
+                "outputPins": [
+                    {
+                        "label": "String",
+                        "type": "string"
+                    }
+                ],
+                "nodeColor": "var(--dek-success-normal)",
+                "nodeLabel": "Create String"
+            },
+            "measured": {
+                "width": 256,
+                "height": 76
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node1729175873680584",
+            "type": "logTimer",
+            "position": {
+                "x": 1500,
+                "y": 560
+            },
+            "dragHandle": ".card-title",
+            "data": {
+                "inputPins": [
+                    {
+                        "label": "ExecIn",
+                        "type": "exec"
+                    },
+                    {
+                        "label": "Label",
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "label": "Action",
+                        "type": "choice",
+                        "default": 0,
+                        "options": [
+                            "start",
+                            "log",
+                            "stop"
+                        ]
+                    }
+                ],
+                "outputPins": [
+                    {
+                        "label": "ExecOut",
+                        "type": "exec"
+                    }
+                ],
+                "nodeColor": "var(--dek-info-normal)",
+                "nodeLabel": "Log Timer"
+            },
+            "measured": {
+                "width": 235,
+                "height": 128
+            },
+            "selected": false,
+            "dragging": false
+        },
+        {
+            "id": "node1729175888356624",
+            "type": "logTimer",
+            "position": {
+                "x": 2400,
+                "y": 560
+            },
+            "dragHandle": ".card-title",
+            "data": {
+                "inputPins": [
+                    {
+                        "label": "ExecIn",
+                        "type": "exec"
+                    },
+                    {
+                        "label": "Label",
+                        "type": "string",
+                        "default": ""
+                    },
+                    {
+                        "label": "Action",
+                        "type": "choice",
+                        "default": 0,
+                        "options": [
+                            "start",
+                            "log",
+                            "stop"
+                        ],
+                        "value": 2
+                    }
+                ],
+                "outputPins": [
+                    {
+                        "label": "ExecOut",
+                        "type": "exec"
+                    }
+                ],
+                "nodeColor": "var(--dek-info-normal)",
+                "nodeLabel": "Log Timer"
+            },
+            "measured": {
+                "width": 256,
+                "height": 163
             },
             "selected": false,
             "dragging": false
         }
     ],
     "edges": [
-        {
-            "source": "node1729127943076767",
-            "sourceHandle": "node-node1729127943076767-output-0-exec",
-            "target": "node1729128339559421",
-            "targetHandle": "node-node1729128339559421-input-0-exec",
-            "style": {
-                "strokeWidth": 3
-            },
-            "id": "xy-edge__node1729127943076767node-node1729127943076767-output-0-exec-node1729128339559421node-node1729128339559421-input-0-exec"
-        },
-        {
-            "source": "node1729128334526876",
-            "sourceHandle": "node-node1729128334526876-output-0-object",
-            "target": "node1729128339559421",
-            "targetHandle": "node-node1729128339559421-input-1-object",
-            "style": {
-                "strokeWidth": 3
-            },
-            "id": "xy-edge__node1729128334526876node-node1729128334526876-output-0-object-node1729128339559421node-node1729128339559421-input-1-object"
-        },
-        {
-            "source": "node1729128339559421",
-            "sourceHandle": "node-node1729128339559421-output-0-exec",
-            "target": "node1729128358614872",
-            "targetHandle": "node-node1729128358614872-input-0-exec",
-            "style": {
-                "strokeWidth": 3
-            },
-            "id": "xy-edge__node1729128339559421node-node1729128339559421-output-0-exec-node1729128358614872node-node1729128358614872-input-0-exec"
-        },
-        {
-            "source": "node1729128339559421",
-            "sourceHandle": "node-node1729128339559421-output-1-object",
-            "target": "node1729128358614872",
-            "targetHandle": "node-node1729128358614872-input-1-wildcard",
-            "style": {
-                "strokeWidth": 3
-            },
-            "id": "xy-edge__node1729128339559421node-node1729128339559421-output-1-object-node1729128358614872node-node1729128358614872-input-1-wildcard"
-        },
-        {
-            "source": "node1729128358614872",
-            "sourceHandle": "node-node1729128358614872-output-0-exec",
-            "target": "node172912837166752",
-            "targetHandle": "node-node172912837166752-input-0-exec",
-            "style": {
-                "strokeWidth": 3
-            },
-            "id": "xy-edge__node1729128358614872node-node1729128358614872-output-0-exec-node172912837166752node-node172912837166752-input-0-exec"
-        },
         {
             "source": "node172912837166752",
             "sourceHandle": "node-node172912837166752-output-0-exec",
@@ -307,7 +383,8 @@
             "style": {
                 "strokeWidth": 3
             },
-            "id": "xy-edge__node172912837166752node-node172912837166752-output-0-exec-node1729128379559217node-node1729128379559217-input-0-exec"
+            "id": "xy-edge__node172912837166752node-node172912837166752-output-0-exec-node1729128379559217node-node1729128379559217-input-0-exec",
+            "selected": false
         },
         {
             "source": "node1729128385945366",
@@ -315,9 +392,120 @@
             "target": "node1729128379559217",
             "targetHandle": "node-node1729128379559217-input-1-wildcard",
             "style": {
-                "strokeWidth": 3
+                "strokeWidth": 3,
+                "stroke": "var(--dek-secondary-normal)",
+                "opacity": 0.25,
+                "animated": true
             },
             "id": "xy-edge__node1729128385945366node-node1729128385945366-output-0-string-node1729128379559217node-node1729128379559217-input-1-wildcard"
+        },
+        {
+            "source": "node1729175873680584",
+            "sourceHandle": "node-node1729175873680584-output-0-exec",
+            "target": "node172912837166752",
+            "targetHandle": "node-node172912837166752-input-0-exec",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-text-color)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729175873680584node-node1729175873680584-output-0-exec-node172912837166752node-node172912837166752-input-0-exec"
+        },
+        {
+            "source": "node1729128379559217",
+            "sourceHandle": "node-node1729128379559217-output-0-exec",
+            "target": "node1729175888356624",
+            "targetHandle": "node-node1729175888356624-input-0-exec",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-text-color)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729128379559217node-node1729128379559217-output-0-exec-node1729175888356624node-node1729175888356624-input-0-exec"
+        },
+        {
+            "source": "node1729128334526876",
+            "sourceHandle": "node-node1729128334526876-output-0-object",
+            "target": "node1729128339559421",
+            "targetHandle": "node-node1729128339559421-input-1-object",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-warning-normal)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729128334526876node-node1729128334526876-output-0-object-node1729128339559421node-node1729128339559421-input-1-object"
+        },
+        {
+            "source": "node1729127943076767",
+            "sourceHandle": "node-node1729127943076767-output-0-exec",
+            "target": "node1729128339559421",
+            "targetHandle": "node-node1729128339559421-input-0-exec",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-text-color)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729127943076767node-node1729127943076767-output-0-exec-node1729128339559421node-node1729128339559421-input-0-exec"
+        },
+        {
+            "source": "node1729128339559421",
+            "sourceHandle": "node-node1729128339559421-output-1-object",
+            "target": "node1729128358614872",
+            "targetHandle": "node-node1729128358614872-input-1-wildcard",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-warning-normal)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729128339559421node-node1729128339559421-output-1-object-node1729128358614872node-node1729128358614872-input-1-wildcard"
+        },
+        {
+            "source": "node1729128339559421",
+            "sourceHandle": "node-node1729128339559421-output-0-exec",
+            "target": "node1729128358614872",
+            "targetHandle": "node-node1729128358614872-input-0-exec",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-text-color)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729128339559421node-node1729128339559421-output-0-exec-node1729128358614872node-node1729128358614872-input-0-exec"
+        },
+        {
+            "source": "node1729128358614872",
+            "sourceHandle": "node-node1729128358614872-output-0-exec",
+            "target": "node1729175873680584",
+            "targetHandle": "node-node1729175873680584-input-0-exec",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-text-color)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node1729128358614872node-node1729128358614872-output-0-exec-node1729175873680584node-node1729175873680584-input-0-exec"
+        },
+        {
+            "source": "node172917060438717",
+            "sourceHandle": "node-node172917060438717-output-0-string",
+            "target": "node1729175873680584",
+            "targetHandle": "node-node1729175873680584-input-1-string",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-secondary-normal)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node172917060438717node-node172917060438717-output-0-string-node1729175873680584node-node1729175873680584-input-1-string"
+        },
+        {
+            "source": "node172917060438717",
+            "sourceHandle": "node-node172917060438717-output-0-string",
+            "target": "node1729175888356624",
+            "targetHandle": "node-node1729175888356624-input-1-string",
+            "style": {
+                "strokeWidth": 3,
+                "stroke": "var(--dek-secondary-normal)",
+                "opacity": 0.25
+            },
+            "id": "xy-edge__node172917060438717node-node172917060438717-output-0-string-node1729175888356624node-node1729175888356624-input-1-string"
         }
     ]
 }

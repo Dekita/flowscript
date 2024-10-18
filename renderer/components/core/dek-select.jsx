@@ -85,8 +85,8 @@ export default function DekSelect({
     const IconComponent = showUL ? IconDown : IconList;
 
     const skinnySizes = {
-        fontSize: skinny ? '.8rem' : '.75rem',
-        lineHeight: skinny ? '.9rem' : '.75rem',
+        fontSize: skinny ? '.75rem' : '.75rem',
+        lineHeight: skinny ? '.75rem' : '.75rem',
         minHeight: skinny ? '24px' : '42px',
     }
     
@@ -99,6 +99,18 @@ export default function DekSelect({
         top: skinny? '20px' : '40px',
     }
 
+    const iconProperties = {
+        width: skinny ? 12: 16,
+        height: skinny ? 12: 16,
+        fill: 'currentColor',
+    }
+
+    const smallStyles = skinny ? {
+        fontSize: '.75rem',
+        lineHeight: '.75rem',
+        padding: '0.2rem 0.5rem',
+    } : {};
+
     return <div
         className={mainclasses}
         onClick={onClickElement}
@@ -106,9 +118,9 @@ export default function DekSelect({
         style={{...style, ...skinnySizes}}
         ref={ref}
         id={uid}>
-        <small className='btn-select-value form-control'>{selected_text}</small>
+        <small className='btn-select-value' style={smallStyles}>{selected_text}</small>
         <span className='btn-select-arrow text-center'>
-            <IconComponent width={16} height={16} fill='currentColor' />
+            <IconComponent {...iconProperties} />
         </span>
         <ul className={showUL ? 'd-block thin-scroller' : 'd-none'} style={ulStyles}>
             {child_array.map((child) => {

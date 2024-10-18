@@ -67,7 +67,7 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
     // const pinHasConnection = isInput && params?.data?.connections?.some(c => c.target === id);
 
     return <div className='d-flex px-1' style={pinStyle}>
-        <div className=''>
+        {!pin.disableHandle && <div className=''>
             <Handle
                 id={id}
                 type={ioType === 'input' ? 'target' : 'source'}
@@ -75,11 +75,11 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
                 style={variablePinStyle(pin.type)}
                 onContextMenu={(event) => onPinContextMenu(event, id)}
             />
-            <span className='' style={spanStyle}>{pin.label}</span>
-        </div>
+            {!pin.disableLabel && <span style={spanStyle}>{pin.label.replaceAll(' ', '')}</span>}
+        </div>}
         {pinHasValue && !pinConnected && <React.Fragment>
 
-            {pin.type !== 'choice' && <ENVEntry
+            {!['choice', 'text'].includes(pin.type) && <ENVEntry
                 value={pin.value ?? pin.default ?? ''}
                 // onClick={onClickPathInput}
                 updateSetting={onUpdatePinValue}
@@ -98,6 +98,18 @@ export default function CommonPin({nodeID, pin, ioType, index, onPinContextMenu}
                 >
                     {pin.options?.map((choice, i) => <option key={i} value={i}>{choice}</option>)}
                 </DekSelect>
+            }
+            {pin.type === 'text' && 
+                <textarea
+                    className='form-control form-control-sm'
+                    value={pin.value ?? pin.default ?? ''}
+                    onChange={(event) => onUpdatePinValue(null, event.target.value)}
+                    disabled={pinConnected}
+                    style={{
+                        minHeight: '5rem',
+                        // resize: 'none'
+                    }}
+                />
             }
 
         </React.Fragment>}

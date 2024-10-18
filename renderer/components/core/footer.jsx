@@ -82,7 +82,7 @@ export default function Footer() {
             <OverlayTrigger placement='left' delay={delay} overlay={<Tooltip className="text-end">
                 <Image src='https://img.shields.io/discord/1132980259596271657?logo=discord&style=for-the-badge&logoColor=e4e4e4&label=Support%20Server' fluid />
                 </Tooltip>}>
-                <Link href='https://discord.gg/WyTdramBkm' target='_blank' className='btn hover-secondary'>
+                <Link href='https://discord.gg/WyTdramBkm' target='_blank' className='btn hover-secondary border-0'>
                     <CommonIcons.discord {...iconOptions} />
                 </Link>
             </OverlayTrigger>
@@ -90,7 +90,7 @@ export default function Footer() {
             <OverlayTrigger placement='top' delay={delay} overlay={<Tooltip className="text-end">
                     <small className='px-2'>{t('#footer.github')}</small>
                 </Tooltip>}>
-                <Link href='https://github.com/dekita/flowscript' target='_blank' className='btn hover-secondary'>
+                <Link href='https://github.com/dekita/flowscript' target='_blank' className='btn hover-secondary border-0 mx-2'>
                     <CommonIcons.github {...iconOptions} />
                 </Link>
             </OverlayTrigger>
@@ -98,7 +98,7 @@ export default function Footer() {
             <OverlayTrigger placement='right' delay={delay} overlay={<Tooltip className="">
                     <small className='px-2'>{t('#footer.patreon')}</small>
                 </Tooltip>}>
-                <Link href='https://patreon.com/dekitarpg' target='_blank' className='btn hover-secondary'>
+                <Link href='https://patreon.com/dekitarpg' target='_blank' className='btn hover-secondary border-0'>
                     <CommonIcons.patreon {...iconOptions} />
                 </Link>
             </OverlayTrigger>

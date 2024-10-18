@@ -66,11 +66,13 @@ export default function BaseNode(params) {
 
     // console.log('reactFlow.flowSettings:', reactFlow.flowSettings)
 
-    return <div id={id} className='mb-2' style={nodeStyles} onClick={()=>{}}>
+    return <div id={id} className='mb-2' style={nodeStyles}>
     {/* return <Col xs={12} md={6} lg={4} xl={3} className='mb-2' onClick={realOnClick}> */}
         <Card className='' style={cardStyle}>
-            <Card.Title className='d-flex justify-content-between px-2 pb-1 mb-0' style={titleStyle}>
-                <strong><small>{nodeLabel}</small></strong>
+            <Card.Title className='d-flex justify-content-between pb-1 mb-0' style={titleStyle}>
+                <div className='w-100 px-2 bg-mid-shadow-gradient' style={{}}>
+                    <strong><small>{nodeLabel}</small></strong>
+                </div>
             </Card.Title>
             <Card.Body className='text-start p-0 pt-1 card radius0' style={bodyStyle}>
                 {/* <div className='d-flex justify-content-between px-2 pb-1'  style={{backgroundColor:nodeColor}}>

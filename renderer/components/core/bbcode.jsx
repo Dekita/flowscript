@@ -60,8 +60,8 @@ function sanitizeBB(bbcodeText) {
     return bbcodeText;
 }
 
-export default function BBCodeRenderer({ bbcodeText }) {
-    return <div className='bbcode-div mb-3' dangerouslySetInnerHTML={{
+export default function BBCodeRenderer({ bbcodeText, className='mb-3' }) {
+    return <div className={`bbcode-div ${className}`} dangerouslySetInnerHTML={{
         __html: BBCode.toReact(sanitizeBB(bbcodeText))
     }}/>;
 }

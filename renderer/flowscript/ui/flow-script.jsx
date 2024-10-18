@@ -16,6 +16,7 @@ import {
 
 import '@xyflow/react/dist/style.css';
 
+import NodeSettingsModal from '@components/modals/node-settings';
 import FlowSettingsModal from '@components/modals/flow-settings';
 import * as CommonIcons from '@config/common-icons';
 import useLocalization from '@hooks/useLocalization';
@@ -30,6 +31,8 @@ import MainNavbar from '@components/core/navbar';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import {pinTypeColors} from '../utils/color-map';
+
+import NodeContextPanel from '@flowscript/ui/node-context';
 
 
 const nodeTypes = Object.keys(FlowScriptAPI.nodeDefinitions).reduce((acc, type) => {
@@ -50,6 +53,8 @@ const edgeStyle = { strokeWidth: 3 };
 
 export function Flow({ThemeController}) {
     const [showModal, setShowModal] = React.useState(false);
+    const [showNodeModal, setShowNodeModal] = React.useState(false);
+    
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
     const [selectedNodeIndex, setSelectedNodeIndex] = React.useState(null);
@@ -62,6 +67,10 @@ export function Flow({ThemeController}) {
     const [portalConnectionType, setPortalConnectionType] = React.useState(null);
     const [isDraggingPin, setIsDraggingPin] = React.useState(false);
     const [reactFlowInstance, setReactFlowInstance] = React.useState(null);
+    
+    const [nodeContextVisible, setNodeContextVisible] = React.useState(false);
+    const [nodeForContext, setNodeForContext] = React.useState(null);
+
 
     const { flowSettings, updateFlowSetting } = useFlowSettings();
 
@@ -196,6 +205,7 @@ export function Flow({ThemeController}) {
             setNodePortalPosition({ x: 0, y: 0 });
             setNodePortalVisible(false);
         }
+        setNodeContextVisible(false);
     }, [nodePortalVisible, isDraggingPin]);
     
     const onClickNode = React.useCallback((event, node) => {
@@ -207,6 +217,17 @@ export function Flow({ThemeController}) {
         // node.selected = true;
         console.log('clicked', foundNode.id, index, node, foundNode);
     }, [nodes]);
+
+    const onNodeContextMenu = React.useCallback((event, node) => {
+        event.preventDefault();
+        console.log('Node Context Menu:', node);
+        // setNodePortalPosition({ x: event.clientX, y: event.clientY });
+        // setNodeContextVisible(true);
+        // selectNodesById([node.id]);
+        // setSelectedNodes([node.id]);
+        setNodeForContext(node);
+        setShowNodeModal(true);
+    }, []);
 
     // const addNode = React.useCallback((type) => {
     //     const newNode = FlowScriptAPI.nodeFactory(type);
@@ -323,6 +344,8 @@ export function Flow({ThemeController}) {
         onConnectEnd={onConnectEnd}
         onPaneClick={onClickGraph}
         onNodeClick={onClickNode}
+        onNodeContextMenu={onNodeContextMenu}
+        onNodeDoubleClick={(event, node) => console.log('double clicked', node)}
         proOptions={{ hideAttribution: true }}
         nodeTypes={nodeTypes}
         colorMode="dark"
@@ -374,6 +397,15 @@ export function Flow({ThemeController}) {
 
 
         {nodePortalVisible && <AddNodePanel {...{nodePortalPosition, hideNodePortal, onClickNode, portalConnectionType, flowSettings}} />}
+        {nodeContextVisible && <NodeContextPanel {...{nodePortalPosition, node: nodeForContext, hideNodeContext: ()=>setNodeContextVisible(false), flowSettings}} />}
+        
+        {nodeForContext && <NodeSettingsModal {...{
+            show: showNodeModal,
+            setShow: setShowNodeModal,
+            nodeID: nodeForContext.id,
+            flowSettings,
+        }}/>}
+
         {/* <Panel position="top-center" className='bg-darkest radius9 p-2'>
         </Panel> */}
         <FlowSettingsModal {...{

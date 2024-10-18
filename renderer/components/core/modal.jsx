@@ -10,9 +10,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import useScreenSize from '@hooks/useScreenSize';
 
-export default function DekCommonAppModal({show,setShow,onCancel=()=>{}, headerText="", showX=true, children}) {
+export default function DekCommonAppModal({show,setShow,onCancel=()=>{}, headerText="", showX=true, size='lg', children}) {
     const {isDesktop} = useScreenSize();
-    const fullscreen = !isDesktop;
+    const fullscreen = size === 'lg' && !isDesktop;
     const handleCancel = () => {
         setShow(false);
         onCancel();
@@ -26,7 +26,7 @@ export default function DekCommonAppModal({show,setShow,onCancel=()=>{}, headerT
     // return the actual envmodal
     return <Modal
         show={show}
-        size="lg"
+        size={size}
         fullscreen={fullscreen}
         onHide={handleCancel}
         backdrop='static'

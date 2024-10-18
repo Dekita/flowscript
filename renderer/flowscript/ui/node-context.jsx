@@ -12,19 +12,18 @@ import { Panel, useReactFlow } from '@xyflow/react';
 import FlowScriptAPI from '@flowscript/api';
 import SmallStrong from '@components/core/smstr';
 
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import MarkdownRenderer from '@components/markdown/renderer';
-import BBCodeRenderer from '@components/core/bbcode';
-
-export default function AddNodePanel({portalConnectionType, nodePortalPosition, hideNodePortal, onClickNode, flowSettings}) {
+export default function NodeContextPanel({node, nodePortalPosition, hideNodePortal, onClickNode, flowSettings}) {
     // const reactFlow = useReactFlow();
-    const [searchText, setSearchText] = React.useState('');
-    const [contextSensitive, setContextSensitive] = React.useState(true);
+    const definition = FlowScriptAPI.nodeDefinitions[node.type];
+    // FlowScriptAPI.nodeDefinitions
 
-    const onChangeSearchText = React.useCallback((e) => {
-        setSearchText(e.target.value);
-    }, [setSearchText]);
+    console.log(node)
+
+    // const [searchText, setSearchText] = React.useState('');
+    // const [contextSensitive, setContextSensitive] = React.useState(true);
+    // const onChangeSearchText = React.useCallback((e) => {
+    //     setSearchText(e.target.value);
+    // }, [setSearchText]);
 
     const portalStyle = React.useMemo(()=>{
         const windW = window.innerWidth - 24;
@@ -45,84 +44,26 @@ export default function AddNodePanel({portalConnectionType, nodePortalPosition, 
         };
     }, [nodePortalPosition, flowSettings]);
     
-    const sortedDefinitions = React.useMemo(()=>{
-        const defaultCategory = 'Undefined';
-        return Object.keys(FlowScriptAPI.nodeDefinitions).sort((a, b) => {
-            const definitionA = FlowScriptAPI.nodeDefinitions[a];
-            const definitionB = FlowScriptAPI.nodeDefinitions[b];
-            const categoryA = definitionA.category ?? defaultCategory;
-            const categoryB = definitionB.category ?? defaultCategory;
-            if (categoryA === categoryB) return definitionA.label.localeCompare(definitionB.label);
-            return categoryA.localeCompare(categoryB);
-        });
-    }, []);
     
-    const possibleCategories = React.useMemo(()=>{
-        const filteredDefinitions = sortedDefinitions.filter((type) => {
-            const definition = FlowScriptAPI.nodeDefinitions[type];
-            const category = definition.category.toLowerCase();
-            const label = definition.label.toLowerCase();
-            const lowerSearch = searchText.trim().toLowerCase();
-            if (lowerSearch) {
-                if (category.includes(lowerSearch)) return true;
-                if (label.includes(lowerSearch)) return true;
-                // if (definition.description.toLowerCase().includes(lowerSearch)) return true;
-                return false;
-            }
-
-            if (portalConnectionType && contextSensitive) {
-                if (definition.inputPins.some(pin => pin.type === portalConnectionType)) return true;
-                return false;
-            } 
-
-            return !!!lowerSearch;
-        });
-        return filteredDefinitions.reduce((acc, type) => {
-            const definition = FlowScriptAPI.nodeDefinitions[type];
-            const category = definition.category.toLowerCase();
-            if (!acc[category]) acc[category] = [];
-            if (!acc[category].includes(type)) acc[category].push(type);
-            return acc;
-        }, {});
-    }, [sortedDefinitions, searchText, contextSensitive]);
-
-    const onClickContextToggle = React.useCallback(() => {
-        setContextSensitive(!contextSensitive);
-    }, [contextSensitive, setContextSensitive]);
-
     // Convert the click position to flow graph coordinates
     return <Panel>
         <div className="card border border-2 border-success p-0" style={portalStyle}>
             <div className='row'>
                 <div className='col'>
-                    <SmallStrong className='px-2' text={'All Possible Nodes'} />
+                    <SmallStrong className='px-2' text={`Node Options: ${definition.label}`} />
                 </div>
                 <div className='col-auto'>
-                    {portalConnectionType && <SimpleCheckbox 
-                        text={`with ${portalConnectionType} input`} 
-                        checked={contextSensitive} 
-                        disabled={!portalConnectionType}
-                        onClick={onClickContextToggle} 
-                    />}
+
                 </div>
             </div>
             <hr className='m-0 text-success'/>
             <div className='card-header p-0'>
-                <input type="text" className="form-control form-dark border-0 radius0" placeholder="Search Nodes" onChange={onChangeSearchText} />
+
             </div>
-            <hr className='m-0 text-success'/>           
+            <hr className='m-0 text-success'/>
             <div className='card-body d-grid p-0 overflow-y-auto'>
-                {Object.keys(possibleCategories).map((category, catIndex) => {
-                    const catNodes = possibleCategories[category];
-                    return <NodeListGroup 
-                        key={category}
-                        category={category}
-                        catNodes={catNodes}
-                        nodePortalPosition={nodePortalPosition}
-                        hideNodePortal={hideNodePortal}
-                        onClickNode={onClickNode}
-                    />;
-                })}
+
+
             </div>
         </div>
     </Panel>;
@@ -185,19 +126,9 @@ function NodeListItem({type, spawnPosition, hideNodePortal, onClickNode}) {
         console.log('Added Node:', newNode);
     }, [reactFlow, type, spawnPosition, hideNodePortal, onClickNode]);
 
-    const delay = { show: 250, hide: 100 };
-    // const buttonClasses = 'list-group-item list-group-item-action btn-dark border-0 hover-success py-1 px-2';
-
-    const placement = spawnPosition.x < window.innerWidth / 2 ? 'right' : 'left';
-
-    return <OverlayTrigger placement={placement} delay={delay} overlay={<Tooltip className="" >
-            <BBCodeRenderer className='' bbcodeText={`[b]${definition.category}[/b]\n${definition.description?.trim()}`} />
-            {/* <MarkdownRenderer className='p-5'>{definition.description?.trim()}</MarkdownRenderer> */}
-        </Tooltip>}>
-        <button className={buttonClasses} onClick={onClick}>
-            <small>{definition.label}</small>
-        </button>
-    </OverlayTrigger>;
+    return <button className={buttonClasses} onClick={onClick}>
+        <small>{definition.label}</small>
+    </button>;
 }
 
 function SimpleCheckbox({checked=false, text='Checkbox', onClick=()=>{}, disabled=false}) {

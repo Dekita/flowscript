@@ -152,6 +152,7 @@ const processGraph = async ({ nodes, edges }) => {
 
     const processNode = async (node) => {
         logv('Processing Node:', node);
+
         const definition = nodeDefinitions[node.type];
         if (!definition) return console.error('No Definition Found for Node:', node.type);
 
@@ -245,6 +246,7 @@ const processGraph = async ({ nodes, edges }) => {
         }
 
         // perform the actual node execution
+        console.log(`Executing Node: [${definition.label}]`, inputValues);
         const executionData = {id: node.id, inputValues, setOutputValue, triggerNextNode};
         resultsCache[node.id] = await definition.execution(executionData);
         

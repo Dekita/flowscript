@@ -17,7 +17,7 @@ function MarkdownRenderer({ children }) {
     const components={
         a: LinkRenderer,
     }
-    return <div className="markdown-container">
+    return <div className={`markdown-container`}>
         <Markdown components={components}>{children}</Markdown>
     </div>;
 }
