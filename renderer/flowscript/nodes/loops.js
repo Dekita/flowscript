@@ -1,16 +1,10 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
+
 
 // base class used for all JSON nodes
-class baseLoopNode {
-    static color = 'var(--dek-info-normal)';
+class baseLoopNode extends FS_LogicNode {
     static category = 'LOOPS';
-    static description = 'Loop operation';
-    static inputPins = [];
-    static outputPins = [];
-    static async execution({inputValues}) {
-        return null;
-    }
 }
 
 export class iterateArray extends baseLoopNode {
@@ -27,9 +21,15 @@ export class iterateArray extends baseLoopNode {
         { label: 'onFinish', type: 'exec' },
     ];
     static async execution({inputValues, setOutputValue, triggerNextNode}) {
-        for (let index = 0; index < inputValues.Input.length; index++) {
+        // for (let index = 0; index < inputValues.Input.length; index++) {
+        //     setOutputValue('Element', inputValues.Input[index]);
+        //     setOutputValue('LoopNumber', index);
+        //     await triggerNextNode('onIteration');
+        // }
+        for (const [index, element] of inputValues.Input.entries()) {
+            console.log({index, element});
+            setOutputValue('Element', element);
             setOutputValue('LoopNumber', index);
-            setOutputValue('Element', inputValues.Input[index]);
             await triggerNextNode('onIteration');
         }
         await triggerNextNode('onFinish');

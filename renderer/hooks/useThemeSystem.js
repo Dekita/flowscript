@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 export const THEMES = [
     'palhub', 
     'dark1',
+    'dark2',
 
     // 'ikon',
     // 'khakii',

@@ -419,11 +419,11 @@ input[type="range"].thin {
     color: var(--dek-text-color);
     float: right;
     line-height: inherit;
-    margin-top: -0.1rem;
+    /* margin-top: -0.1rem; */
 
     padding: 3px 8px 4px 8px;
-    /* height: 100%; */
-    height: 20px;
+    height: 100%;
+    /* height: 20px; */
     width: 36px;
     top: 0;
 }
@@ -489,6 +489,30 @@ input[type="range"].thin {
     width: 32px;
     /* height: 24px;  */
 }
+
+.dekselect-dark:hover .btn-select-arrow {
+    border-color: var(--dek-darker-2);
+}
+.dekselect-primary:hover .btn-select-arrow {
+    border-color: var(--dek-primary-darkest);
+}
+.dekselect-secondary:hover .btn-select-arrow {
+    border-color: var(--dek-secondary-darkest);
+}
+.dekselect-info:hover .btn-select-arrow {
+    border-color: var(--dek-info-darkest);
+}
+.dekselect-success:hover .btn-select-arrow {
+    border-color: var(--dek-success-darkest);
+}
+.dekselect-warning:hover .btn-select-arrow {
+    border-color: var(--dek-warning-darkest);
+}
+.dekselect-danger:hover .btn-select-arrow {
+    border-color: var(--dek-danger-darkest);
+}
+
+
 
 /*###################################
 * 

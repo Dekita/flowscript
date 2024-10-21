@@ -1,5 +1,5 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 class FS_BaseObjectNode extends FS_DataNode {
     static category = 'OBJECT';
@@ -7,6 +7,7 @@ class FS_BaseObjectNode extends FS_DataNode {
 }
 
 export class createObject extends FS_BaseObjectNode {
+    static priority = 9;
     static label = 'Create Object';
     static outputPins = [
         { label: 'Object', type: 'object' },
@@ -74,7 +75,6 @@ export class objectRemoveProperty extends FS_BaseObjectNode {
         await triggerNextNode('ExecOut');
     }
 }
-
 
 export class objectMerge extends FS_BaseObjectNode {
     static label = 'Merge Objects';

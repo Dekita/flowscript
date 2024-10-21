@@ -51,7 +51,7 @@ export function prepareDecription(desc, scanning_env) {
     return desc;
 }
 
-export function ENVEntryLabel({name, envdatas, tooltip, skinny}) {
+export function ENVEntryLabel({name, envdatas, tooltip, skinny, color}) {
 
     // console.log({tooltip})
     const customStyle = {
@@ -98,7 +98,7 @@ export function ENVEntryLabel({name, envdatas, tooltip, skinny}) {
 }
 
 
-export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, disabled, skinny}) {
+export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, disabled, skinny, color}) {
     // const [knownValue, setKnownValue] = useState(value);
 
     const onKeyUp = (e) => {
@@ -127,7 +127,7 @@ export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, e
             placeholder={name} 
             id={name + "-input"} 
             name={name + "-input"} 
-            className={'form-control form-secondary w-100' + (skinny ? ' ms-1 form-control-sm py-0' : '')} 
+            className={`form-control form-${color} w-100` + (skinny ? ' ms-1 form-control-sm py-0' : '')} 
             onChange={onChanged} 
             onClick={onClick}
             disabled={disabled}
@@ -145,7 +145,7 @@ export function ENVEntry_Input({name, value, onClick, updateSetting, defaults, e
 
 
 
-export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, labels, skinny}) {
+export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, envdatas, tooltip, disabled, noLabel, labels, skinny, color}) {
     // const [knownValue, setKnownValue] = useState(value);
     // updateSetting(name)
     return <div className={noLabel ? 'w-100' : 'py-2'}>
@@ -155,22 +155,26 @@ export function ENVEntry_Bool({name, value, onClick, updateSetting, defaults, en
             maxIconWidth={64}
             labels={labels}
             // icons={NSFWIcons}
+            disabled={disabled}
             checked={value}
             onClick={newval=>updateSetting(name, newval)}
             iconPos='left'
             inline={true}
             skinny={skinny}
+            color={color}
         />
     </div>
 }
 
-export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, disabled, limits, skinny}) {
+export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, envdatas, tooltip, noLabel, disabled, limits, skinny, color}) {
     // const [knownValue, setKnownValue] = useState(value);
     // updateSetting(name)
     return <div className={noLabel ? 'w-100' : 'py-2'}>
         {!noLabel && <ENVEntryLabel {...{name: `${name}: ${value}`,envdatas,tooltip}} />}
         <DekSlider
             // label={name}
+            thin={skinny}
+            color={color}
             disabled={disabled}
             min={limits.min}
             max={limits.max}
@@ -184,7 +188,7 @@ export function ENVEntry_Range({name, value, onClick, updateSetting, defaults, e
     </div>
 }
 
-export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=>{}, defaults={}, envdatas={}, tooltip='', type='', labels=null, noLabel=false, disabled=false, limits=null, skinny=false}) {
+export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=>{}, defaults={}, envdatas={}, tooltip='', type='', labels=null, noLabel=false, disabled=false, limits=null, skinny=false, color='secondary'}) {
     // value = ensureEntryValueType(value);
     // console.log(`entry for ${name}:`, typeof value, {name, value})
     const { t, tA } = useLocalization();
@@ -193,7 +197,7 @@ export function ENVEntry({name=null, value="", onClick=()=>{}, updateSetting=()=
     if (labels && labels.length === 1) labels.push(labels[0]);
 
     if (type === 'numbool') value = value === '1';
-    const passthrough = {name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, labels, disabled, limits, skinny};
+    const passthrough = {name, value, onClick, updateSetting, defaults, envdatas, tooltip, type, noLabel, labels, disabled, limits, skinny, color};
     if (type === 'numbool') return <ENVEntry_Bool {...passthrough} />
 
     switch (typeof value) {

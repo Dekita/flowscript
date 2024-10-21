@@ -1,0 +1,43 @@
+
+/*###################################
+* 
+* ■ Theme Generator by DekitaRPG@gmail.com
+* see github.com/dekitarpg/flowscript
+* for implementation example <3
+* 
+*/
+:root {
+	--dek-gen-version: FS 0.0.29;
+	--dek-body-color:  #151a0e;
+	--dek-text-color:  #f5f3cc;
+	--dek-modal-body-color:  #101607;
+	--dek-modal-text-color:  #ffffff;
+	--dek-modal-border-color:  #191e13;
+	--dek-card-body-color:  #091100;
+	--dek-card-text-color:  #ffffff;
+	--dek-card-header-color:  #f5ed00;
+	--dek-primary-normal:  #1673ca;
+	--dek-primary-darker:  #0056a9;
+	--dek-primary-darkest:  #003b89;
+	--dek-primary-light:  #64a4ff;
+	--dek-secondary-normal:  #955aae;
+	--dek-secondary-darker:  #753c8e;
+	--dek-secondary-darkest:  #561f6f;
+	--dek-secondary-light:  #ca8be3;
+	--dek-info-normal:  #0082bc;
+	--dek-info-darker:  #006299;
+	--dek-info-darkest:  #004478;
+	--dek-info-light:  #60b8f6;
+	--dek-success-normal:  #00878b;
+	--dek-success-darker:  #00666b;
+	--dek-success-darkest:  #00474d;
+	--dek-success-light:  #56bdc2;
+	--dek-warning-normal:  #97690f;
+	--dek-warning-darker:  #754c00;
+	--dek-warning-darkest:  #563100;
+	--dek-warning-light:  #cf9a44;
+	--dek-danger-normal:  #bb503e;
+	--dek-danger-darker:  #973223;
+	--dek-danger-darkest:  #740f08;
+	--dek-danger-light:  #f5836c;
+}

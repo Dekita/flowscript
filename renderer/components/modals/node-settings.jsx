@@ -40,14 +40,14 @@ export default function NodeSettingsModal({show, setShow, nodeID, flowSettings, 
     const modalOptions = {show, setShow, onCancel, headerText, showX: true, size: 'md'};
 
     const nodeLabel = React.useMemo(() => {
-        return node?.data.nodeLabel || definition.label;
+        return node?.data.nodeLabel || definition?.label;
     }, [node, definition]);
 
     const nodeColor = React.useMemo(() => {
-        return node?.data.nodeColor || definition.color;
+        return node?.data.nodeColor || definition?.color;
     }, [node, definition]);
 
-
+    // node.type is same as definition.name
     return <DekCommonAppModal {...modalOptions}>
         {/* <div type="DekBody" className="d-grid p-3 px-4"> */}
         <div type="DekBody" className='d-block p-2 px-3 overflow-y-auto' style={{maxHeight}}>
@@ -62,6 +62,15 @@ export default function NodeSettingsModal({show, setShow, nodeID, flowSettings, 
                 tooltip={t(`flowscript.node-id-desc`)}
                 disabled={true}
             />
+
+            <ENVEntry
+                // key={idx}
+                name={t(`flowscript.node-class-name`)}
+                value={node.type}
+                // limits={limits}
+                tooltip={t(`flowscript.node-id-desc`)}
+                disabled={true}
+            />            
 
             <ENVEntry
                 // key={idx}

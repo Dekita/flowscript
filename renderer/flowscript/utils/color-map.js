@@ -9,6 +9,7 @@ export const pinTypeColors = {
     class: 'var(--dek-danger-normal)',
     wildcard: 'var(--dek-success-normal)',
     choice: 'var(--dek-primary-normal)',
+    date: 'var(--dek-secondary-normal)',
 
 
     // exec: '#e4e4e4',
@@ -23,14 +24,10 @@ export const pinTypeColors = {
 
 
 
-// export const nodeCategoryColors = {
-//     DEFAULT: 'var(--dek-text-color)',
-//     LOGIC: 'var(--dek-warning-normal)',
-//     OBJECT: 'var(--dek-success-normal)',
-//     MATH: 'var(--dek-primary-normal)',
-//     STRING: 'var(--dek-secondary-normal)',
-//     ARRAY: 'var(--dek-info-normal)',
-//     FUNCTION: 'var(--dek-danger-normal)',
-//     FLOW: 'var(--dek-text-color)',
-//     ENV: 'var(--dek-text-color)',
-// }
+export const nodeCategoryColors = {
+    DEFAULT: 'var(--dek-text-color)',
+    EVENT: 'var(--dek-primary-normal)',
+    EXECUTION: 'var(--dek-secondary-normal)',
+    LOGIC: 'var(--dek-info-normal)',
+    DATA: 'var(--dek-warning-normal)',
+}

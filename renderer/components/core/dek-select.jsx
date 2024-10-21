@@ -39,8 +39,10 @@ export default function DekSelect({
     onChange,
     active_id,
     uid,
+    className = '',
     disableInput = false,
     skinny = false,
+    color='secondary',
     style = {
         // height: 24,
     },
@@ -91,8 +93,10 @@ export default function DekSelect({
     }
     
     const mainclasses = [
-        'form-control form-control-sm btn-select dekselect-secondary p-0 ms-1',
+        `form-control form-control-sm btn-select dekselect-${color} p-0`,
         showUL ? 'active' : '',
+        skinny ? 'ms-1' : '',
+        className,
     ].join(' ');
 
     const ulStyles = {
@@ -109,7 +113,16 @@ export default function DekSelect({
         fontSize: '.75rem',
         lineHeight: '.75rem',
         padding: '0.2rem 0.5rem',
-    } : {};
+    } : {
+        fontSize: '.75rem',
+        lineHeight: '2rem',
+        padding: '0.2rem 0.5rem',
+    };
+
+    const arrowStyles = {
+        ...smallStyles,
+        padding: '0.15rem 0.5rem',
+    }
 
     return <div
         className={mainclasses}
@@ -119,7 +132,7 @@ export default function DekSelect({
         ref={ref}
         id={uid}>
         <small className='btn-select-value' style={smallStyles}>{selected_text}</small>
-        <span className='btn-select-arrow text-center'>
+        <span className='btn-select-arrow text-center' style={arrowStyles}>
             <IconComponent {...iconProperties} />
         </span>
         <ul className={showUL ? 'd-block thin-scroller' : 'd-none'} style={ulStyles}>

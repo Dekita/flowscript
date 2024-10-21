@@ -12,11 +12,14 @@ import useScreenSize from '@hooks/useScreenSize';
 
 export default function DekCommonAppModal({show,setShow,onCancel=()=>{}, headerText="", showX=true, size='lg', children}) {
     const {isDesktop} = useScreenSize();
-    const fullscreen = size === 'lg' && !isDesktop;
+    const fullscreen = ['lg', 'xl'].includes(size) && !isDesktop;
     const handleCancel = () => {
         setShow(false);
         onCancel();
     }
+    const headChildren = React.Children.map(children, (child) => {
+        return child?.props.type === 'DekHead' ? child : null;
+    }, this);
     const bodyChildren = React.Children.map(children, (child) => {
         return child?.props.type === 'DekBody' ? child : null;
     }, this);
@@ -36,6 +39,7 @@ export default function DekCommonAppModal({show,setShow,onCancel=()=>{}, headerT
             <Modal.Title className='col py-1'>
                 <strong className="">{headerText}</strong>
             </Modal.Title>
+            {headChildren.length> 0 && <React.Fragment>{headChildren}</React.Fragment>}
             {showX && <Button variant='none' className='p-0 hover-danger no-shadow' onClick={handleCancel}>
                 <IconX className='modalicon' fill='currentColor' />
             </Button>}

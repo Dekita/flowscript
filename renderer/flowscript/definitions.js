@@ -11,9 +11,7 @@ export * from './nodes/string';
 export * from './nodes/console';
 export * from './nodes/json';
 export * from './nodes/image';
-// export * from './nodes/math';
-// export * from './nodes/date';
-// export * from './nodes/time';
+export * from './nodes/date';
 
 // additional logic
 export * from './nodes/logic';

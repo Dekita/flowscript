@@ -16,16 +16,20 @@ export default function DekChoice({
     className = '',
     style = {},
     disabled=false,
+    skinny=false,
 }) {
 
     // const [activeID, setActiveID] = useState(active);
     
     return <div className={'' + className} style={{ ...style }}>
-        <div className='btn-group dek-choice w-100' role="group">
+        <div className={`btn-group ${skinny? 'btn-group-sm' : ''} dek-choice w-100`} role="group">
             {choices.map((choice, i) => {
                 const Icon = icons[i];
                 const isActive = active === i;
-                const deClass = 'w-100 btn '+(isActive ? `btn-${color}` : `btn-dark hover-${color}`)+(disabled?' disabled':'');
+                let deClass = 'w-100 btn '+(isActive ? `btn-${color}` : `btn-dark hover-${color}`)+(disabled?' disabled':'');
+                deClass += (skinny ? ' p-0' : '');
+
+
                 const deClick = ()=> {
                     if (disabled) return;
                     // setActiveID(i);

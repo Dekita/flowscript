@@ -1,8 +1,8 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 // Base class used for all boolean nodes
-class singleInputBooleanNodeBase extends FS_DataNode{
+class singleInputBooleanNodeBase extends FS_DataNode {
     static category = 'BOOLEAN';
     static inputPins = [
         { label: 'Boolean', type: 'boolean', default: false },
@@ -24,8 +24,9 @@ class twinInputBooleanNodeBase extends singleInputBooleanNodeBase {
 }
 
 export class createBoolean extends singleInputBooleanNodeBase {
+    static priority = 9;
     static label = 'Create Boolean';
-    static description = 'Create a boolean value';
+    static description = 'Create a new boolean value';
     static async execution({inputValues}) {
         return inputValues?.Boolean;
     }

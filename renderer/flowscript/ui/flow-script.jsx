@@ -18,6 +18,7 @@ import '@xyflow/react/dist/style.css';
 
 import NodeSettingsModal from '@components/modals/node-settings';
 import FlowSettingsModal from '@components/modals/flow-settings';
+import ThemeConfigModal from '@components/modals/theme-config';
 import * as CommonIcons from '@config/common-icons';
 import useLocalization from '@hooks/useLocalization';
 
@@ -41,7 +42,7 @@ const nodeTypes = Object.keys(FlowScriptAPI.nodeDefinitions).reduce((acc, type) 
 
 
 const initialNodes = [
-    FlowScriptAPI.nodeFactory('runFlowScript'),
+    FlowScriptAPI.nodeFactory('runFlowScript', { x: 0, y: 0 }),
 ];
 
 const initialEdges = [
@@ -54,6 +55,7 @@ const edgeStyle = { strokeWidth: 3 };
 export function Flow({ThemeController}) {
     const [showModal, setShowModal] = React.useState(false);
     const [showNodeModal, setShowNodeModal] = React.useState(false);
+    const [showThemeModal, setShowThemeModal] = React.useState(false);
     
     const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
     const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -291,6 +293,10 @@ export function Flow({ThemeController}) {
         setShowModal(true);
     }, [setShowModal]);
 
+    const showThemeConfig = React.useCallback(() => {
+        setShowThemeModal(true);
+    }, [setShowThemeModal]);
+
     const hideNodePortal = React.useCallback(() => {
         setNodePortalVisible(false);
     }, [setNodePortalVisible]);
@@ -374,10 +380,7 @@ export function Flow({ThemeController}) {
             pannable={flowSettings.minimapPan}
             zoomable={flowSettings.minimapZoom}
         />
-        {/* <Controls 
-            style={{backgroundColor: 'var(--dek-darker-3)'}}
-            position={['bottom-right', 'bottom-left'][flowSettings.minimapPos]} 
-        /> */}
+
         <CustomControls {...{isInteractive, toggleInteractivity}}/>
         
         <Background gap={gridSize} />
@@ -390,6 +393,7 @@ export function Flow({ThemeController}) {
                     loadGraphFromFile,
                     saveGraphToFile,
                     showFlowSettings,
+                    showThemeConfig,
                     FlowScriptAPI,
                 }} />
             </div>
@@ -415,6 +419,11 @@ export function Flow({ThemeController}) {
             updateFlowSetting,
             ThemeController,
         }}/>
+        <ThemeConfigModal {...{
+            show: showThemeModal,
+            setShow: setShowThemeModal,
+            ThemeController,
+        }}/>
     </ReactFlow>;
 }
 
@@ -425,7 +434,7 @@ function CustomControls({isInteractive, toggleInteractivity}) {
     const { t } = useLocalization();
     const controlsOpts = {
         // orientation: 'horizontal',
-        style: { backgroundColor: 'var(--dek-darker-3);' },
+        style: { backgroundColor: 'var(--dek-darker-3)' },
         position: ['bottom-right', 'bottom-left'][flowSettings.minimapPos],
         showInteractive: false,
         showFitView: false,

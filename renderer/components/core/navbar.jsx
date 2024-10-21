@@ -49,6 +49,9 @@ export default function MainNavbar({FlowScriptAPI, ...callbacks}) {
         width: '2rem',
     }
 
+    const is_this_route = '/themecustomizer' === active_route;
+    const route_color = is_this_route ? 'text-warning' : 'hover-dark hover-secondary ';
+
     return <Navbar className='navbar theme-text'>
         <Container className='theme-text' fluid>
             {/* Area to display all of the regular navigation links */}
@@ -76,6 +79,9 @@ export default function MainNavbar({FlowScriptAPI, ...callbacks}) {
             {/* Area to display the update progress & settings cog */}
             <Nav className='gap-2'>
                 <div className='col-auto'><AutoUpdater/></div>
+                <button className="btn btn-secondary w-100 h-100" onClick={callbacks.showThemeConfig}>
+                    <CommonIcons.paint_roller {...commonIconProps} />
+                </button>
                 <button className="btn btn-secondary w-100 h-100" onClick={callbacks.showFlowSettings}>
                     <CommonIcons.cog {...commonIconProps} />
                 </button>

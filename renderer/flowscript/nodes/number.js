@@ -1,5 +1,5 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 class BaseNumberNode extends FS_DataNode {
     static category = 'NUMBER';
@@ -12,24 +12,51 @@ class NumberInNode extends BaseNumberNode {
     ];
 }
 
+class NumberOutNode extends BaseNumberNode {
+    static outputPins = [
+        { label: 'Number', type: 'number' },
+    ];
+}
+
 class NumberInOutNode extends NumberInNode {
     static outputPins = [
         { label: 'Number', type: 'number' },
     ];
 }
 
+class NumberInBoolOutNode extends NumberInNode {
+    static outputPins = [
+        { label: 'Result', type: 'boolean' },
+    ];
+}
+
+class WildcardInBoolOutNode extends FS_DataNode {
+    static category = 'NUMBER';
+    static inputPins = [
+        { label: 'Input', type: 'wildcard', default: null },
+    ];
+    static outputPins = [
+        { label: 'Result', type: 'boolean' },
+    ];
+}
+
+
+
+
+
 export class createNumber extends NumberInOutNode {
+    static priority = 9;
     static label = 'Create Number';
     static description = 'Create a number';
     static inputPins = [
         { label: 'Number', type: 'number', default: 0, disableHandle: true },
     ];
     static async execution({inputValues}) {
-        return inputValues?.Number;
+        return Number(inputValues?.Number);
     }
 }
 
-export class numberGetInfinity extends NumberInOutNode {
+export class numberGetInfinity extends NumberOutNode {
     static label = 'Get Infinity';
     static description = 'Get Infinity value';
     static async execution({inputValues}) {
@@ -37,7 +64,7 @@ export class numberGetInfinity extends NumberInOutNode {
     }
 }
 
-export class numberIsFinite extends NumberInNode {
+export class numberIsFinite extends NumberInBoolOutNode {
     static label = 'Is Finite';
     static description = 'Check if number is finite';
     static async execution({inputValues}) {
@@ -45,15 +72,23 @@ export class numberIsFinite extends NumberInNode {
     }
 }
 
-export class numberIsNumber extends NumberInNode {
-    static label = 'Is A Number';
-    static description = 'Check if input is a number';
+export class numberIsNaN extends WildcardInBoolOutNode {
+    static label = 'Is NaN';
+    static description = 'Check if input is NaN';
     static async execution({inputValues}) {
-        return !isNaN(inputValues.Number);
+        return isNaN(inputValues.Input);
     }
 }
 
-export class numberIsSafeInteger extends NumberInNode {
+export class numberIsNumber extends WildcardInBoolOutNode {
+    static label = 'Is A Number';
+    static description = 'Check if input is a number';
+    static async execution({inputValues}) {
+        return !isNaN(inputValues.Input);
+    }
+}
+
+export class numberIsSafeInteger extends NumberInBoolOutNode {
     static label = 'Is Safe Integer';
     static description = 'Check if input is a safe integer';
     static async execution({inputValues}) {
@@ -61,26 +96,9 @@ export class numberIsSafeInteger extends NumberInNode {
     }
 }
 
-export class numberParseInt extends NumberInNode {
-    static label = 'Parse Integer';
-    static description = 'Parse input to integer';
-    static async execution({inputValues}) {
-        return parseInt(inputValues.Number);
-    }
-}
-
-export class numberParseFloat extends NumberInNode {
-    static label = 'Parse Float';
-    static description = 'Parse input to float';
-    static async execution({inputValues}) {
-        return parseFloat(inputValues.Number);
-    }
-}
-
-
 export class numberRandom extends NumberInOutNode {
     static label = 'Random';
-    static description = 'Generate a random number';
+    static description = 'Generate a random number\n{0.0 - 1.0}';
     static async execution() {
         return Math.random();
     }
@@ -88,7 +106,7 @@ export class numberRandom extends NumberInOutNode {
 
 export class numberRandomInteger extends NumberInOutNode {
     static label = 'Random Integer';
-    static description = 'Generate a random integer';
+    static description = 'Generate a random integer\n{within given range}';
     static inputPins = [
         { label: 'Min', type: 'number', default: 0 },
         { label: 'Max', type: 'number', default: 100 },
@@ -100,7 +118,7 @@ export class numberRandomInteger extends NumberInOutNode {
 
 export class numberRandomFloat extends NumberInOutNode {
     static label = 'Random Float';
-    static description = 'Generate a random float';
+    static description = 'Generate a random float\n{within given range}';
     static inputPins = [
         { label: 'Min', type: 'number', default: 0 },
         { label: 'Max', type: 'number', default: 100 },
@@ -349,5 +367,440 @@ export class numberClamp extends NumberInOutNode {
         return Math.min(Math.max(inputValues.Number, inputValues.Min), inputValues.Max);
     }
 }
+
+export class numberLessThan extends NumberInBoolOutNode {
+    static label = '< {Less Than}';
+    static description = 'Check if number is less than another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 < inputValues.Number2;
+    }
+}
+
+export class numberLessThanEqual extends NumberInBoolOutNode {
+    static label = '<= {Less Than Equal}';
+    static description = 'Check if number is less than or equal to another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 <= inputValues.Number2;
+    }
+}
+
+export class numberEqual extends NumberInBoolOutNode {
+    static label = '=== {Equal}';
+    static description = 'Check if number is equal to another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 === inputValues.Number2;
+    }
+}
+
+export class numberNotEqual extends NumberInBoolOutNode {
+    static label = '!== {Not Equal}';
+    static description = 'Check if number is not equal to another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 !== inputValues.Number2;
+    }
+}
+
+export class numberGreaterThanEqual extends NumberInBoolOutNode {
+    static label = '>= {Greater Than Equal}';
+    static description = 'Check if number is greater than or equal to another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 >= inputValues.Number2;
+    }
+}
+
+export class numberGreaterThan extends NumberInBoolOutNode {
+    static label = '> {Greater Than}';
+    static description = 'Check if number is greater than another number';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 > inputValues.Number2;
+    }
+}
+
+export class numberAdd extends NumberInOutNode {
+    static label = '+ {Add}';
+    static description = 'Add two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 + inputValues.Number2;
+    }
+}
+
+export class numberSubtract extends NumberInOutNode {
+    static label = '- {Subtract}';
+    static description = 'Subtract two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 - inputValues.Number2;
+    }
+}
+
+export class numberMultiply extends NumberInOutNode {
+    static label = '* {Multiply}';
+    static description = 'Multiply two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 * inputValues.Number2;
+    }
+}
+
+export class numberDivide extends NumberInOutNode {
+    static label = '/ {Divide}';
+    static description = 'Divide two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 1 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 / inputValues.Number2;
+    }
+}
+
+export class numberModulo extends NumberInOutNode {
+    static label = '% {Modulo}';
+    static description = 'Get the modulo of two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 1 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 % inputValues.Number2;
+    }
+}
+
+export class numberIncrement extends NumberInOutNode {
+    static label = '++ {Increment}';
+    static description = 'Increment a number by 1';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return parseInt(inputValues.Number) + 1;
+    }
+}
+
+export class numberDecrement extends NumberInOutNode {
+    static label = '-- {Decrement}';
+    static description = 'Decrement a number by 1';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return parseInt(inputValues.Number) - 1;
+    }
+}
+
+export class numberNegate extends NumberInOutNode {
+    static label = 'Negate';
+    static description = 'Negate a number';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return -inputValues.Number;
+    }
+}
+
+export class numberBitwiseNot extends NumberInOutNode {
+    static label = '~ {Bitwise Not}';
+    static description = 'Bitwise Not a number';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return ~inputValues.Number;
+    }
+}
+
+export class numberBitwiseAnd extends NumberInOutNode {
+    static label = '& {Bitwise And}';
+    static description = 'Bitwise And two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 & inputValues.Number2;
+    }
+}
+
+export class numberBitwiseOr extends NumberInOutNode {
+    static label = '| {Bitwise Or}';
+    static description = 'Bitwise Or two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 | inputValues.Number2;
+    }
+}
+
+export class numberBitwiseXor extends NumberInOutNode {
+    static label = '^ {Bitwise Xor}';
+    static description = 'Bitwise Xor two numbers';
+    static inputPins = [
+        { label: 'Number1', type: 'number', default: 0 },
+        { label: 'Number2', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number1 ^ inputValues.Number2;
+    }
+}
+
+export class numberBitwiseLeftShift extends NumberInOutNode {
+    static label = '<< {Bitwise Left Shift}';
+    static description = 'Bitwise Left Shift a number';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Shift', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number << inputValues.Shift;
+    }
+}
+
+export class numberBitwiseRightShift extends NumberInOutNode {
+    static label = '>> {Bitwise Right Shift}';
+    static description = 'Bitwise Right Shift a number';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Shift', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number >> inputValues.Shift;
+    }
+}
+
+export class numberBitwiseZeroFillRightShift extends NumberInOutNode {
+    static label = '>>> {Bitwise Zero Fill Right Shift}';
+    static description = 'Bitwise Zero Fill Right Shift a number';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Shift', type: 'number', default: 0 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number >>> inputValues.Shift;
+    }
+}
+
+export class numberToFixed extends NumberInOutNode {
+    static label = 'To Fixed';
+    static description = 'Convert number to a fixed decimal string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Decimal', type: 'number', default: 2 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toFixed(inputValues.Decimal);
+    }
+}
+
+export class numberToPrecision extends NumberInOutNode {
+    static label = 'To Precision';
+    static description = 'Convert number to a precision string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Precision', type: 'number', default: 2 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toPrecision(inputValues.Precision);
+    }
+}
+
+export class numberToExponential extends NumberInOutNode {
+    static label = 'To Exponential';
+    static description = 'Convert number to an exponential string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+        { label: 'Decimal', type: 'number', default: 2 },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toExponential(inputValues.Decimal);
+    }
+}
+
+export class numberToBinary extends NumberInOutNode {
+    static label = 'To Binary';
+    static description = 'Convert number to a binary string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'string' },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toString(2);
+    }
+}
+
+export class numberFromBinary extends NumberOutNode {
+    static label = 'From Binary';
+    static description = 'Convert binary string to a number';
+    static inputPins = [
+        { label: 'String', type: 'string', default: '0' },
+    ];
+    static async execution({inputValues}) {
+        return parseInt(inputValues.String, 2);
+    }
+}
+
+export class numberToOctal extends NumberInOutNode {
+    static label = 'To Octal';
+    static description = 'Convert number to an octal string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'string' },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toString(8);
+    }
+}
+
+export class numberFromOctal extends NumberOutNode {
+    static label = 'From Octal';
+    static description = 'Convert octal string to a number';
+    static inputPins = [
+        { label: 'String', type: 'string', default: '0' },
+    ];
+    static async execution({inputValues}) {
+        return parseInt(inputValues.String, 8);
+    }
+}
+
+export class numberToHex extends NumberInOutNode {
+    static label = 'To Hex';
+    static description = 'Convert number to a hexadecimal string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'string' },
+    ];
+    static async execution({inputValues}) {
+        return inputValues.Number.toString(16);
+    }
+}
+
+export class numberFromHex extends NumberOutNode {
+    static label = 'From Hex';
+    static description = 'Convert hexadecimal string to a number';
+    static inputPins = [
+        { label: 'String', type: 'string', default: '0' },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'number' },
+    ];
+    static async execution({inputValues}) {
+        return parseInt(inputValues.String, 16);
+    }
+}
+
+export class numberToRoman extends NumberInOutNode {
+    static label = 'To Roman';
+    static description = 'Convert number to a roman numeral string';
+    static inputPins = [
+        { label: 'Number', type: 'number', default: 0 },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'string' },
+    ];
+    static async execution({inputValues}) {
+        const ROMAN_NUMBERS = {
+            M: 1000,
+            CM: 900,
+            D: 500,
+            CD: 400,
+            C: 100,
+            XC: 90,
+            L: 50,
+            XL: 40,
+            X: 10,
+            IX: 9,
+            V: 5,
+            IV: 4,
+            I: 1
+        };
+        let str = '';
+        let num = inputValues.Number;
+        for (let i of Object.keys(ROMAN_NUMBERS)) {
+            const q = Math.floor(num / ROMAN_NUMBERS[i]);
+            num -= q * ROMAN_NUMBERS[i];
+            str += i.repeat(q);
+        }
+        return str;
+    }
+}
+
+export class numberFromRoman extends NumberInOutNode {
+    static label = 'From Roman';
+    static description = 'Convert roman numeral string to a number';
+    static inputPins = [
+        { label: 'String', type: 'string', default: 'I' },
+    ];
+    static outputPins = [
+        { label: 'Output', type: 'number' },
+    ];
+    static async execution({inputValues}) {
+        const ROMAN_NUMBERS = {
+            M: 1000,
+            CM: 900,
+            D: 500,
+            CD: 400,
+            C: 100,
+            XC: 90,
+            L: 50,
+            XL: 40,
+            X: 10,
+            IX: 9,
+            V: 5,
+            IV: 4,
+            I: 1
+        };
+        let num = 0;
+        for (let i of Object.keys(ROMAN_NUMBERS)) {
+            while (inputValues.String.indexOf(i) === 0) {
+                num += ROMAN_NUMBERS[i];
+                inputValues.String = inputValues.String.replace(i, '');
+            }
+        }
+        return num;
+    }
+}
+
 
 

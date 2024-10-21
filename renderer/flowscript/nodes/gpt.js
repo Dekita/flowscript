@@ -1,16 +1,9 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 // base class used for all JSON nodes
-class GPTBaseNode {
-    static color = 'var(--dek-success-normal)';
+class GPTBaseNode extends FS_ExecutionNode {
     static category = 'GPT';
-    static description = 'GPT operation';
-    static inputPins = [];
-    static outputPins = [];
-    static async execution({inputValues}) {
-        return null;
-    }
 }
 
 export class speakWithGPT extends GPTBaseNode {
@@ -102,6 +95,46 @@ export class dalleGenerateImageGPT extends GPTBaseNode {
             setOutputValue('Success', true);
         } catch (error) {
             setOutputValue('ImageURL', error.message);
+            setOutputValue('Success', false);
+        }
+
+        // Call the next connected node based on the exec pin label
+        await triggerNextNode('ExecOut');
+    }
+}
+
+export class dalleListModels extends GPTBaseNode {
+    static label = 'List DALL-E Models';
+    static description = 'List all available DALL-E models';
+    static inputPins = [
+        { label: 'ExecIn', type: 'exec' },
+        { label: 'API Key', type: 'string', default: '' }, // API Key for DALL-E
+    ];
+    static outputPins = [
+        { label: 'ExecOut', type: 'exec' },
+        { label: 'Success', type: 'boolean' },
+        { label: 'Models', type: 'string' }, // List of DALL-E models
+    ];
+
+    static async execution({ inputValues, setOutputValue, triggerNextNode }) {
+        const apiKey = inputValues['API Key'] ?? '';
+        const apiUrl = 'https://api.openai.com/v1/images/models';
+
+        try {
+            const res = await fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
+                },
+            });
+
+            const data = await res.json();
+            // Store the list of DALL-E models in the output pin
+            setOutputValue('Models', data.data.map(model => model.name).join(', '));
+            setOutputValue('Success', true);
+        } catch (error) {
+            setOutputValue('Models', error.message);
             setOutputValue('Success', false);
         }
 

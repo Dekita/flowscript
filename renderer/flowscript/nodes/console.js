@@ -1,5 +1,5 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 const createLoggerID = nodeid => `logger-preview-${nodeid}`;
 const CONSOLE_COUNT_ACTIONS = ['count', 'reset', 'delete'];
@@ -23,19 +23,9 @@ const toggleLoggerDisplay = (id, text) => {
 }
 
 // base class used for all console (logging) nodes
-class baseConsoleNode {
-    static color = 'var(--dek-info-normal)';
+class baseConsoleNode extends FS_ExecutionNode {
     static category = 'CONSOLE';
     static description = 'Console operations';
-    static inputPins = [
-        { label: 'ExecIn', type: 'exec' },
-    ];
-    static outputPins = [
-        { label: 'ExecOut', type: 'exec' },
-    ];
-    static async execution({inputValues}) {
-        return null;
-    }
     static JSX({id}) {
         const logger_id = createLoggerID(id);
         const loggerStyle = {
@@ -58,11 +48,10 @@ export class logWildcardConsole extends baseConsoleNode {
         { label: 'Output', type: 'wildcard', default: null },
     ];
     static async execution({id, inputValues, triggerNextNode}) {
-        if (!!inputValues.Output) {
+        if (inputValues.Output !== null) {
             try {
                 toggleLoggerDisplay(id, JSON.stringify(inputValues.Output, null, 4));
             } catch (error) {
-                console.error(error);
                 toggleLoggerDisplay(id, `Error: ${error.message}`);
             }
         } else {

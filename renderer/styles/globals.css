@@ -737,3 +737,22 @@ a:hover {
 .react-flow.dark {
     --xy-background-color-default: var(--dek-darker-1) !important;
 }
+
+/* Tries to change input border radius */
+input[type="color"].form-control-color {
+    border-radius: 9px; 
+}
+
+/* Tries to change swatch border radius */
+/* input[type="color"]::-webkit-color-swatch-wrapper {
+    border-radius: inherit; 
+} */
+  
+/* Tries to change color sample appearance */
+/* input[type="color"]::-webkit-color-swatch {
+    border-radius: inherit; 
+} */
+  
+/* input[type="color"]::-moz-color-swatch {
+    border-radius: inherit; 
+} */

@@ -23,6 +23,7 @@ export { default as random } from '@svgs/fa5/duotone/random.svg';
 
 export { default as magic } from '@svgs/fa5/duotone/magic.svg';
 export { default as paint } from '@svgs/fa5/duotone/paint-brush.svg';
+export { default as paint_roller } from '@svgs/font-awesome/fa5/duotone/paint-roller.svg';
 export { default as watch } from '@svgs/fa5/duotone/stopwatch.svg';
 export { default as puzzle } from '@svgs/fa5/duotone/puzzle-piece.svg';
 export { default as desktop } from '@svgs/fa5/duotone/desktop.svg';
@@ -95,6 +96,10 @@ export { default as unlock } from '@svgs/font-awesome/fa5/duotone/unlock-alt.svg
 
 export { default as vector } from '@svgs/font-awesome/fa5/duotone/vector-square.svg';
 export { default as bordernone } from '@svgs/font-awesome/fa5/duotone/border-none.svg';
+
+export { default as clipboard } from '@svgs/font-awesome/fa5/duotone/clipboard.svg';
+export { default as file_export } from '@svgs/font-awesome/fa5/duotone/file-export.svg';
+export { default as file_download } from '@svgs/font-awesome/fa5/duotone/file-download.svg';
 
 // export {default as IconPreview} from '@svgs/fa5/duotone/file-image.svg';
 // export {default as IconSliders} from '@svgs/fa5/duotone/tasks-alt.svg';

@@ -1,16 +1,9 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
 // base class used for all JSON nodes
-class JSONBaseNode {
-    static color = 'var(--dek-success-normal)';
+class JSONBaseNode extends FS_ExecutionNode {
     static category = 'JSON';
-    static description = 'JSON operation';
-    static inputPins = [];
-    static outputPins = [];
-    static async execution({inputValues}) {
-        return null;
-    }
 }
 
 export class objectToStringJSON extends JSONBaseNode {
@@ -57,6 +50,22 @@ export class stringToObjectJSON extends JSONBaseNode {
             setOutputValue('Success', false);
             setOutputValue('Output', error.message);
         }
+        await triggerNextNode('ExecOut');
+    }
+}
+
+export class cloneObjectJSON extends JSONBaseNode {
+    static label = 'Clone Object';
+    static inputPins = [
+        { label: 'ExecIn', type: 'exec' },
+        { label: 'Input', type: 'object', default: {} },
+    ];
+    static outputPins = [
+        { label: 'ExecOut', type: 'exec' },
+        { label: 'Output', type: 'object' },
+    ];
+    static async execution({inputValues, setOutputValue, triggerNextNode}) {
+        setOutputValue('Output', JSON.parse(JSON.stringify(inputValues.Input)));
         await triggerNextNode('ExecOut');
     }
 }

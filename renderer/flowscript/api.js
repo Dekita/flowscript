@@ -188,18 +188,18 @@ const processGraph = async ({ nodes, edges }) => {
                         resultsCache[sourceNode.id] = await processNode(sourceNode);
                     }
                 }
-                if (outputsCache[sourceNode.id] !== undefined) {
-                    logv('setting from output cache:', outputsCache[sourceNode.id], targetPin, sourcePin);
-                    inputValues[targetPin.label] = outputsCache[sourceNode.id][sourcePin.label];
-                }
                 if (resultsCache[sourceNode.id] !== undefined) {
-                    if (Array.isArray(resultsCache[sourceNode.id])) {
+                    if (Array.isArray(resultsCache[sourceNode.id]) && sourceData.pinType !== 'array') {
                         logv('ARRAY setting from results cache:', resultsCache[sourceNode.id][sourceData.pinIndex]);//resultsCache[sourceNode.id], targetPin, sourcePin);
                         inputValues[targetPin.label] = resultsCache[sourceNode.id][sourceData.pinIndex];
-                    } else  {
+                    } else {
                         logv('setting from results cache:', resultsCache[sourceNode.id], targetPin, sourcePin);
                         inputValues[targetPin.label] = resultsCache[sourceNode.id];
                     }
+                }
+                if (outputsCache[sourceNode.id] !== undefined) {
+                    logv('setting from output cache:', outputsCache[sourceNode.id], targetPin, sourcePin);
+                    inputValues[targetPin.label] = outputsCache[sourceNode.id][sourcePin.label];
                 }
                 logv('set input value:', targetPin.label, inputValues[targetPin.label]);
             }
@@ -217,26 +217,29 @@ const processGraph = async ({ nodes, edges }) => {
 
         for (const outputEdge of outputEdges) {
             const targetNode = findNode(outputEdge.target, nodes);
-            const targetData = splitHandle(outputEdge.targetHandle);
             if (!targetNode) return console.error('Target Node not found:', outputEdge.target);
-            const sourcePin = node.data.outputPins[targetData.pinIndex];
+            const sourceData = splitHandle(outputEdge.sourceHandle);
+            const sourcePin = node.data.outputPins[sourceData.pinIndex];
             if (sourcePin?.type !== 'exec') continue;
+            logv('setting output function:', { sourcePin, targetNode, outputEdge, sourceData });
             outputFunctions[sourcePin.label] = async () => await processNode(targetNode);
         }
 
         logv({
             inputPins,
             outputPins,
+            inputEdges,
             inputValues,
+            outputEdges,
             outputValues,
             outputFunctions,
         });
 
         // callback to trigger the next node in the chain, based on
-        // the output function for the connectedPinLabel, which defaults to 'ExecOut'
-        const triggerNextNode = async (connectedPinLabel = 'ExecOut') => {
-            logv('Triggering Next Node:', connectedPinLabel);
-            await outputFunctions?.[connectedPinLabel]?.();
+        // the output function for the sourcePinLabel, which defaults to 'ExecOut'
+        const triggerNextNode = async (sourcePinLabel = 'ExecOut') => {
+            logv('Triggering Next Node:', sourcePinLabel);
+            await outputFunctions?.[sourcePinLabel]?.();
         };
 
         const setOutputValue = (label, value) => {
@@ -247,10 +250,19 @@ const processGraph = async ({ nodes, edges }) => {
 
         // perform the actual node execution
         console.log(`Executing Node: [${definition.label}]`, inputValues);
-        const executionData = {id: node.id, inputValues, setOutputValue, triggerNextNode};
-        resultsCache[node.id] = await definition.execution(executionData);
+
+        // findNodeByType
+        resultsCache[node.id] = await definition.execution({
+            id: node.id, 
+            inputValues, 
+            setOutputValue, 
+            triggerNextNode,
+            processNode,
+            findNode: (id) => findNode(id, nodes),
+            findNodeByType: (type) => findNodeByType(type, nodes),
+        });
         
-        logv({resultsCache, outputsCache});
+        console.log({resultsCache, outputsCache});
 
         // return the results of the node execution to be used by the next node
         // this is only used for 'literal' nodes that return a value directly!

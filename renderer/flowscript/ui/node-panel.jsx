@@ -52,7 +52,12 @@ export default function AddNodePanel({portalConnectionType, nodePortalPosition, 
             const definitionB = FlowScriptAPI.nodeDefinitions[b];
             const categoryA = definitionA.category ?? defaultCategory;
             const categoryB = definitionB.category ?? defaultCategory;
-            if (categoryA === categoryB) return definitionA.label.localeCompare(definitionB.label);
+            if (categoryA === categoryB) {
+                if (definitionA.priority !== definitionB.priority) {
+                    return definitionB.priority - definitionA.priority;
+                }
+                return definitionA.label.localeCompare(definitionB.label);
+            }
             return categoryA.localeCompare(categoryB);
         });
     }, []);
@@ -129,7 +134,7 @@ export default function AddNodePanel({portalConnectionType, nodePortalPosition, 
 }
 
 function NodeListGroup({ category, catNodes, nodePortalPosition, hideNodePortal, onClickNode }) {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const el_index = `node-list-${category}`;
     const common = {fill:'currentColor', width:'1rem', height:'1rem'};
     return <React.Fragment>

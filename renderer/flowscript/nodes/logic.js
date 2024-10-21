@@ -1,18 +1,12 @@
 
-import { FS_DataNode } from "./basecore";
+import { FS_DataNode, FS_EventNode, FS_ExecutionNode, FS_LogicNode } from "./basecore";
 
-class baseLogicNode {
-    static label = 'Base Logic Node';
+class baseLogicNode extends FS_LogicNode {
     static color = 'var(--dek-primary-normal)';
     static category = 'LOGIC';
-    static inputPins = [];
-    static outputPins = [];
-    static async execution() {
-        throw new Error('Execution method not implemented');
-    }
 }
 
-export class checkCondition extends baseLogicNode {
+export class checkCondition extends FS_LogicNode {
     static label = 'Check Condition';
     static inputPins = [
         { label: 'ExecIn', type: 'exec' },
@@ -27,7 +21,7 @@ export class checkCondition extends baseLogicNode {
     }
 }
 
-export class evaluateJavaScript extends baseLogicNode {
+export class evaluateJavaScript extends FS_LogicNode {
     static label = 'Evaluate JavaScript';
     static inputPins = [
         { label: 'ExecIn', type: 'exec' },
@@ -51,7 +45,7 @@ export class evaluateJavaScript extends baseLogicNode {
     }
 }
 
-export class waitDuration extends baseLogicNode {
+export class waitDuration extends FS_LogicNode {
     static label = 'Wait For Duration';
     static inputPins = [
         { label: 'ExecIn', type: 'exec' },
@@ -62,12 +56,13 @@ export class waitDuration extends baseLogicNode {
     ];
     static async execution({inputValues, triggerNextNode}) {
         const duration = inputValues.Duration;
+        // setTimeout(triggerNextNode, duration);
         await new Promise(resolve => setTimeout(resolve, duration));
         await triggerNextNode('ExecOut');
     }
 }
 
-export class waitForPromise extends baseLogicNode {
+export class waitForPromise extends FS_LogicNode {
     static label = 'Wait For Promise';
     static inputPins = [
         { label: 'ExecIn', type: 'exec' },
